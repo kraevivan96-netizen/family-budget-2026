@@ -41,12 +41,13 @@
     .skeleton{animation:pulse 1.5s ease-in-out infinite}
     
     /* Header */
-    .hdr{background:var(--hbg);color:var(--htext);padding:35px 20px;position:sticky;top:0;z-index:10;text-align:center}
-    .hdr h1{font-size:34px;font-weight:600;letter-spacing:-.5px}
-    .container{max-width:100%;margin:0 auto;padding:20px}
+    .hdr{background:0 0;color:var(--htext);padding:55px 20px 20px;position:sticky;top:0;z-index:10;text-align:center;transition:padding .3s,background .3s}
+    .hdr.scrolled{padding:12px 20px;background:color-mix(in srgb,var(--hbg) 90%,transparent);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+    .hdr h1{font-size:34px;font-weight:600;letter-spacing:-.5px;transition:opacity .3s,transform .3s}
+    .hdr.scrolled h1{opacity:0;transform:translateY(-10px)}
     
     /* Cards */
-    .card{background:color-mix(in srgb,var(--bg) calc((1-var(--opacity))*100%),transparent);border-radius:20px;padding:20px;margin-bottom:20px;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+    .card{background:color-mix(in srgb,var(--bg) calc((1 - var(--opacity)) * 100%),transparent);border-radius:20px;padding:20px;margin-bottom:20px;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:background .3s}
     [data-blur="true"] .card{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
     .card-title{font-size:17px;font-weight:600;color:var(--primary);margin-bottom:16px}
     .balance{font-size:52px;font-weight:600;color:var(--primary);text-align:center}
@@ -151,7 +152,7 @@
       s.setProperty('--primary', S.primaryColor);
       s.setProperty('--hbg', S.headerBgColor);
       s.setProperty('--htext', S.headerTextColor);
-      s.setProperty('--opacity', 1 - S.opacity/100);
+      s.setProperty('--opacity', S.opacity / 100);
       document.body.setAttribute('data-wallpaper', S.wallpaper);
       document.body.setAttribute('data-animation', S.animation);
       document.body.setAttribute('data-blur', S.blur);
@@ -349,6 +350,20 @@
     async function saveCfg() { S.customWallpaper=document.getElementById('cwurl')?.value||'';applySettings();await api('saveSettings',S);toast('Сохранено'); }
     async function resetCfg() { S={...DEFAULTS};applySettings();await api('saveSettings',S);if(page==='settings')settings();toast('Сброшено'); }
     
+    // ===== SCROLL =====
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const hdr = document.querySelector('.hdr');
+      if (!hdr) return;
+      const scrollY = window.scrollY;
+      if (scrollY > 60) {
+        hdr.classList.add('scrolled');
+      } else {
+        hdr.classList.remove('scrolled');
+      }
+      lastScroll = scrollY;
+    }, { passive: true });
+
     // ===== INIT =====
     window.onload = async () => { await loadSettings(); render(); };
   </script>
