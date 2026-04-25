@@ -311,14 +311,17 @@
      * @param {object} data - Данные для передачи
      * @returns {Promise} Результат выполнения
      */
+      
     async function callApi(action, data = {}) {
-      const url = API_URL + '?action=' + action;
-      const options = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      };
-      const response = await fetch(url, options);
+      let url = API_URL + '?action=' + action;
+      
+      // Для данных добавляем их в URL как параметр
+      if (Object.keys(data).length > 0) {
+        url += '&data=' + encodeURIComponent(JSON.stringify(data));
+      }
+      
+      const response = await fetch(url);
+      if (!response.ok) throw new Error('HTTP error: ' + response.status);
       return response.json();
     }
     
