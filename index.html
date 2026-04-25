@@ -20,97 +20,97 @@
   <title>Семейный бюджет 2026</title>
   
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-    :root { --font-family:'Inter',-apple-system,sans-serif; --bg-color:#ffffff; --primary-color:#1a1a1a; --header-bg-color:#1a1a1a; --header-text-color:#ffffff; --block-opacity:1; --wallpaper:none; }
-    body { font-family:var(--font-family); background:transparent; color:var(--primary-color); min-height:100vh; padding:0 0 env(safe-area-inset-bottom,0px) 0; position:relative; transition:background 0.3s ease,color 0.3s ease; }
-    body::after { content:''; position:fixed; top:0; left:0; width:100%; height:100%; background:var(--bg-color); z-index:-1; pointer-events:none; }
-    body::before { content:''; position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
-    body[data-wallpaper="gradient1"]::before{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%)}
-    body[data-wallpaper="gradient2"]::before{background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%)}
-    body[data-wallpaper="gradient3"]::before{background:linear-gradient(135deg,#4facfe 0%,#00f2fe 100%)}
-    body[data-wallpaper="gradient4"]::before{background:linear-gradient(135deg,#43e97b 0%,#38f9d7 100%)}
-    body[data-wallpaper="gradient5"]::before{background:linear-gradient(135deg,#fa709a 0%,#fee140 100%)}
-    body[data-wallpaper="waves"]::before{background:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 120%22%3E%3Cpath d=%22M0 64L50 58.7C100 53 200 43 300 48C400 53 500 75 600 80C700 85 800 75 900 69.3C1000 64 1100 64 1150 64L1200 64V120H1150C1100 120 1000 120 900 120C800 120 700 120 600 120C500 120 400 120 300 120C200 120 100 120 50 120H0Z%22 fill=%22%23667eea%22 opacity=%220.15%22/%3E%3C/svg%3E') repeat-x bottom;background-size:100% auto;background-color:#667eea}
-    body[data-wallpaper="mountains"]::before{background:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 120%22%3E%3Cpath d=%22M0 96L37.5 90.7C75 85 150 75 225 80C300 85 375 107 450 112C525 117 600 107 675 101.3C750 96 825 96 900 101.3C975 107 1050 117 1125 112L1200 107V120H1125C1050 120 975 120 900 120C825 120 750 120 675 120C600 120 525 120 450 120C375 120 300 120 225 120C150 120 75 120 37.5 120H0Z%22 fill=%22%23764ba2%22 opacity=%220.15%22/%3E%3C/svg%3E') repeat-x bottom;background-size:100% auto;background-color:#764ba2}
-    body[data-wallpaper="custom"]::before{background-image:var(--custom-wallpaper);background-size:cover;background-position:center}
-    body[data-wallpaper="none"]::before{display:none}
-    #app{position:relative;z-index:2}
-    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-    @keyframes scaleIn{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}
-    @keyframes slideIn{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
-    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
-    [data-animation="true"] .container{animation:fadeIn 0.4s ease-out}
-    [data-animation="true"] .content-block{animation:scaleIn 0.5s ease-out}
-    [data-animation="true"] .transaction-item{animation:slideIn 0.3s ease-out;animation-fill-mode:both}
-    [data-animation="true"] .transaction-item:nth-child(1){animation-delay:0.05s}
-    [data-animation="true"] .transaction-item:nth-child(2){animation-delay:0.1s}
-    [data-animation="true"] .transaction-item:nth-child(3){animation-delay:0.15s}
-    [data-animation="true"] .transaction-item:nth-child(4){animation-delay:0.2s}
-    [data-animation="true"] .transaction-item:nth-child(5){animation-delay:0.25s}
-    .loading-pulse{animation:pulse 1.5s ease-in-out infinite}
-    .header{background:var(--header-bg-color);color:var(--header-text-color);padding:35px 20px;position:sticky;top:0;z-index:10;text-align:center;transition:background 0.3s ease,color 0.3s ease}
-    .header h1{font-size:34px;font-weight:600;letter-spacing:-0.5px}
-    .container{max-width:100%;margin:0 auto;padding:20px}
-    .content-block{background:color-mix(in srgb,var(--bg-color) calc((1 - var(--block-opacity)) * 100%),transparent);border-radius:20px;padding:20px;margin-bottom:20px;box-shadow:0 2px 12px rgba(0,0,0,0.04);transition:background 0.3s ease}
-    [data-blur="true"] .content-block{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-    .block-title{font-size:17px;font-weight:600;color:var(--primary-color);margin-bottom:16px}
-    .balance-amount{color:var(--primary-color);font-size:52px;font-weight:600;letter-spacing:-1.5px;text-align:center}
-    .transaction-list{border-radius:12px;overflow:hidden}
-    .transaction-item{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid rgba(128,128,128,0.08);transition:background 0.2s ease;cursor:pointer}
-    .transaction-item:active{background:rgba(128,128,128,0.05)}
-    .transaction-item:last-child{border-bottom:none}
-    .transaction-info{flex:1}
-    .transaction-category{font-size:17px;font-weight:500;color:var(--primary-color);margin-bottom:4px}
-    .transaction-meta{display:flex;gap:12px;font-size:14px;color:var(--primary-color);opacity:0.5}
-    .transaction-amount{font-size:20px;font-weight:500;letter-spacing:-0.3px;color:var(--primary-color)}
-    .empty-state{padding:32px 16px;text-align:center;color:var(--primary-color);opacity:0.4;font-size:15px}
-    .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--bg-color);border-top:1px solid rgba(128,128,128,0.08);padding:8px 20px calc(8px + env(safe-area-inset-bottom,0px)) 20px;display:flex;justify-content:space-around;gap:8px;z-index:10}
-    .nav-item{flex:1;text-align:center;padding:12px;border-radius:14px;color:var(--primary-color);opacity:0.5;font-size:15px;font-weight:500;cursor:pointer;transition:all 0.2s cubic-bezier(0.4,0,0.2,1)}
-    .nav-item.active{opacity:1;background:var(--primary-color);color:var(--bg-color)}
-    .nav-item:active{transform:scale(0.96)}
-    .type-selector{display:flex;gap:12px;margin-bottom:20px;background:color-mix(in srgb,var(--bg-color) calc((1 - var(--block-opacity)) * 100%),transparent);padding:4px;border-radius:16px;box-shadow:0 2px 12px rgba(0,0,0,0.04)}
-    [data-blur="true"] .type-selector{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-    .type-btn{flex:1;padding:16px;border:none;background:transparent;border-radius:12px;font-size:17px;font-weight:500;color:var(--primary-color);opacity:0.5;cursor:pointer;transition:all 0.2s cubic-bezier(0.4,0,0.2,1);font-family:inherit}
-    .type-btn.active{background:var(--primary-color);color:var(--bg-color);opacity:1}
-    .type-btn:active{transform:scale(0.97)}
-    .form-table{width:100%;border-collapse:collapse}
-    .form-table tr{border-bottom:1px solid rgba(128,128,128,0.08)}
-    .form-table tr:last-child{border-bottom:none}
-    .form-table td{padding:18px 0;vertical-align:middle}
-    .form-table td:first-child{color:var(--primary-color);font-size:17px;font-weight:400;width:40%}
-    .form-table td:last-child{text-align:right;width:60%}
-    .form-input,.form-select{border:none;background:transparent;font-size:17px;color:var(--primary-color);text-align:right;outline:none;width:100%;font-family:inherit;padding:0;box-sizing:border-box}
-    .form-input::placeholder{color:var(--primary-color);opacity:0.3}
-    .form-select{cursor:pointer;-webkit-appearance:none;appearance:none}
-    .comment-field{padding-top:16px}
-    .comment-input{width:100%;padding:14px;border:none;background:color-mix(in srgb,var(--bg-color) 70%,transparent);border-radius:12px;font-size:15px;color:var(--primary-color);outline:none;font-family:inherit;transition:background 0.2s ease}
-    .comment-input::placeholder{color:var(--primary-color);opacity:0.5}
-    .action-btn{width:100%;padding:18px;background:color-mix(in srgb,var(--bg-color) calc((1 - var(--block-opacity)) * 100%),transparent);color:var(--primary-color);border:none;border-radius:16px;font-size:17px;font-weight:500;cursor:pointer;transition:all 0.2s cubic-bezier(0.4,0,0.2,1);font-family:inherit;box-shadow:0 2px 12px rgba(0,0,0,0.04)}
-    [data-blur="true"] .action-btn{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-    .action-btn:active{opacity:0.8;transform:scale(0.98)}
-    .action-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none}
-    .reset-btn{width:100%;padding:18px;background:transparent;color:var(--primary-color);border:1px solid rgba(128,128,128,0.15);border-radius:16px;font-size:17px;font-weight:500;cursor:pointer;transition:all 0.2s ease;margin-top:12px;font-family:inherit}
-    .reset-btn:active{background:rgba(128,128,128,0.05)}
-    .setting-item{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid rgba(128,128,128,0.08)}
-    .setting-item:last-child{border-bottom:none}
-    .setting-label{color:var(--primary-color);font-size:16px}
-    .setting-select{padding:8px 12px;border:none;background:transparent;color:var(--primary-color);border-radius:10px;font-size:15px;font-family:inherit;cursor:pointer;outline:none}
-    .opacity-slider{width:120px;height:6px;-webkit-appearance:none;appearance:none;background:rgba(128,128,128,0.2);border-radius:3px;outline:none}
-    .opacity-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:24px;height:24px;border-radius:50%;background:var(--primary-color);cursor:pointer;border:2px solid var(--bg-color);box-shadow:0 2px 6px rgba(0,0,0,0.15)}
-    .opacity-value{font-size:14px;color:var(--primary-color);opacity:0.6;min-width:35px;text-align:right}
-    .color-circle{width:40px;height:40px;border-radius:50%;border:2px solid rgba(128,128,128,0.2);cursor:pointer;transition:transform 0.2s ease;position:relative;overflow:hidden}
-    .color-circle:active{transform:scale(0.95)}
-    .color-circle input[type="color"]{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:200%;height:200%;border:none;padding:0;cursor:pointer;opacity:0}
-    .custom-url-input{margin-top:16px;width:100%;padding:14px;border:none;background:color-mix(in srgb,var(--bg-color) 70%,transparent);border-radius:12px;font-size:15px;color:var(--primary-color);outline:none;font-family:inherit}
-    .custom-url-input::placeholder{color:var(--primary-color);opacity:0.3}
-    .switch{position:relative;width:50px;height:28px;background:rgba(128,128,128,0.2);border-radius:14px;cursor:pointer;transition:background 0.2s ease}
-    .switch.active{background:var(--primary-color)}
-    .switch::after{content:'';position:absolute;width:24px;height:24px;background:white;border-radius:12px;top:2px;left:2px;transition:transform 0.2s cubic-bezier(0.4,0,0.2,1)}
-    .switch.active::after{transform:translateX(22px)}
-    .toast{position:fixed;top:calc(80px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);background:var(--primary-color);color:var(--bg-color);padding:14px 24px;border-radius:30px;font-size:15px;z-index:1000;opacity:0;transition:opacity 0.3s ease;pointer-events:none;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,0.15)}
-    .toast.show{opacity:1}
-    input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
-    input[type="number"]{-moz-appearance:textfield}
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    :root {
+      --font-family: 'Inter', -apple-system, sans-serif;
+      --bg-color: #ffffff; --primary-color: #1a1a1a;
+      --header-bg-color: #1a1a1a; --header-text-color: #ffffff;
+      --block-opacity: 1;
+    }
+    body {
+      font-family: var(--font-family); background: transparent; color: var(--primary-color);
+      min-height: 100vh; padding: 0 0 env(safe-area-inset-bottom, 0px) 0;
+      position: relative; transition: background 0.3s ease, color 0.3s ease;
+    }
+    body::after { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-color); z-index: -1; pointer-events: none; }
+    body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+    body[data-wallpaper="gradient1"]::before { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    body[data-wallpaper="gradient2"]::before { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+    body[data-wallpaper="gradient3"]::before { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+    body[data-wallpaper="gradient4"]::before { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+    body[data-wallpaper="gradient5"]::before { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+    body[data-wallpaper="none"]::before { display: none; }
+    #app { position: relative; z-index: 2; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    @keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    [data-animation="true"] .container { animation: fadeIn 0.4s ease-out; }
+    [data-animation="true"] .content-block { animation: scaleIn 0.5s ease-out; }
+    [data-animation="true"] .transaction-item { animation: slideIn 0.3s ease-out; animation-fill-mode: both; }
+    .loading-pulse { animation: pulse 1.5s ease-in-out infinite; }
+    
+    .header {
+      background: var(--header-bg-color); color: var(--header-text-color);
+      padding: 35px 20px; position: sticky; top: 0; z-index: 10;
+      text-align: center; transition: background 0.3s ease, color 0.3s ease;
+    }
+    .header h1 { font-size: 34px; font-weight: 600; letter-spacing: -0.5px; }
+    .container { max-width: 100%; margin: 0 auto; padding: 20px; }
+    .content-block {
+      background: color-mix(in srgb, var(--bg-color) calc((1 - var(--block-opacity)) * 100%), transparent);
+      border-radius: 20px; padding: 20px; margin-bottom: 20px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04); transition: background 0.3s ease;
+    }
+    [data-blur="true"] .content-block { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+    .block-title { font-size: 17px; font-weight: 600; color: var(--primary-color); margin-bottom: 16px; }
+    .balance-amount { color: var(--primary-color); font-size: 52px; font-weight: 600; letter-spacing: -1.5px; text-align: center; }
+    .transaction-list { border-radius: 12px; overflow: hidden; }
+    .transaction-item { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid rgba(128,128,128,0.08); transition: background 0.2s ease; cursor: pointer; }
+    .transaction-item:active { background: rgba(128,128,128,0.05); }
+    .transaction-item:last-child { border-bottom: none; }
+    .transaction-info { flex: 1; }
+    .transaction-category { font-size: 17px; font-weight: 500; color: var(--primary-color); margin-bottom: 4px; }
+    .transaction-meta { display: flex; gap: 12px; font-size: 14px; color: var(--primary-color); opacity: 0.5; }
+    .transaction-amount { font-size: 20px; font-weight: 500; letter-spacing: -0.3px; color: var(--primary-color); }
+    .empty-state { padding: 32px 16px; text-align: center; color: var(--primary-color); opacity: 0.4; font-size: 15px; }
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg-color); border-top: 1px solid rgba(128,128,128,0.08); padding: 8px 20px calc(8px + env(safe-area-inset-bottom, 0px)) 20px; display: flex; justify-content: space-around; gap: 8px; z-index: 10; }
+    .nav-item { flex: 1; text-align: center; padding: 12px; border-radius: 14px; color: var(--primary-color); opacity: 0.5; font-size: 15px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+    .nav-item.active { opacity: 1; background: var(--primary-color); color: var(--bg-color); }
+    .type-selector { display: flex; gap: 12px; margin-bottom: 20px; background: color-mix(in srgb, var(--bg-color) calc((1 - var(--block-opacity)) * 100%), transparent); padding: 4px; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+    .type-btn { flex: 1; padding: 16px; border: none; background: transparent; border-radius: 12px; font-size: 17px; font-weight: 500; color: var(--primary-color); opacity: 0.5; cursor: pointer; transition: all 0.2s; font-family: inherit; }
+    .type-btn.active { background: var(--primary-color); color: var(--bg-color); opacity: 1; }
+    .form-table { width: 100%; border-collapse: collapse; }
+    .form-table tr { border-bottom: 1px solid rgba(128,128,128,0.08); }
+    .form-table tr:last-child { border-bottom: none; }
+    .form-table td { padding: 18px 0; vertical-align: middle; }
+    .form-table td:first-child { color: var(--primary-color); font-size: 17px; font-weight: 400; width: 40%; }
+    .form-table td:last-child { text-align: right; width: 60%; }
+    .form-input, .form-select { border: none; background: transparent; font-size: 17px; color: var(--primary-color); text-align: right; outline: none; width: 100%; font-family: inherit; padding: 0; }
+    .form-input::placeholder { color: var(--primary-color); opacity: 0.3; }
+    .comment-field { padding-top: 16px; }
+    .comment-input { width: 100%; padding: 14px; border: none; background: color-mix(in srgb, var(--bg-color) 70%, transparent); border-radius: 12px; font-size: 15px; color: var(--primary-color); outline: none; font-family: inherit; }
+    .comment-input::placeholder { color: var(--primary-color); opacity: 0.5; }
+    .action-btn { width: 100%; padding: 18px; background: color-mix(in srgb, var(--bg-color) calc((1 - var(--block-opacity)) * 100%), transparent); color: var(--primary-color); border: none; border-radius: 16px; font-size: 17px; font-weight: 500; cursor: pointer; transition: all 0.2s; font-family: inherit; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+    .action-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .reset-btn { width: 100%; padding: 18px; background: transparent; color: var(--primary-color); border: 1px solid rgba(128,128,128,0.15); border-radius: 16px; font-size: 17px; font-weight: 500; cursor: pointer; margin-top: 12px; font-family: inherit; }
+    .setting-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(128,128,128,0.08); }
+    .setting-item:last-child { border-bottom: none; }
+    .setting-label { color: var(--primary-color); font-size: 16px; }
+    .setting-select { padding: 8px 12px; border: none; background: transparent; color: var(--primary-color); border-radius: 10px; font-size: 15px; font-family: inherit; cursor: pointer; outline: none; }
+    .opacity-slider { width: 120px; height: 6px; -webkit-appearance: none; appearance: none; background: rgba(128,128,128,0.2); border-radius: 3px; outline: none; }
+    .opacity-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; border-radius: 50%; background: var(--primary-color); cursor: pointer; border: 2px solid var(--bg-color); }
+    .opacity-value { font-size: 14px; color: var(--primary-color); opacity: 0.6; min-width: 35px; text-align: right; }
+    .color-circle { width: 40px; height: 40px; border-radius: 50%; border: 2px solid rgba(128,128,128,0.2); cursor: pointer; position: relative; overflow: hidden; }
+    .color-circle input[type="color"] { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 200%; height: 200%; border: none; padding: 0; cursor: pointer; opacity: 0; }
+    .custom-url-input { margin-top: 16px; width: 100%; padding: 14px; border: none; background: color-mix(in srgb, var(--bg-color) 70%, transparent); border-radius: 12px; font-size: 15px; color: var(--primary-color); outline: none; font-family: inherit; }
+    .switch { position: relative; width: 50px; height: 28px; background: rgba(128,128,128,0.2); border-radius: 14px; cursor: pointer; transition: background 0.2s ease; }
+    .switch.active { background: var(--primary-color); }
+    .switch::after { content: ''; position: absolute; width: 24px; height: 24px; background: white; border-radius: 12px; top: 2px; left: 2px; transition: transform 0.2s; }
+    .switch.active::after { transform: translateX(22px); }
+    .toast { position: fixed; top: calc(80px + env(safe-area-inset-top, 0px)); left: 50%; transform: translateX(-50%); background: var(--primary-color); color: var(--bg-color); padding: 14px 24px; border-radius: 30px; font-size: 15px; z-index: 1000; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; white-space: nowrap; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+    .toast.show { opacity: 1; }
+    input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
   </style>
 </head>
 <body data-wallpaper="none" data-animation="true" data-blur="true">
@@ -118,14 +118,12 @@
   <div id="app"></div>
   
   <script>
-    // ЗАМЕНИТЕ на ваш ID скрипта
-    const SCRIPT_ID = 'AKfycbyNKdNvU3erBGtgxGFiCCQrHqr69szpH5nCO06xTYam4fkgcqENw6Grh3S0jw6xgaM7Zg';
-    const API_URL = 'https://script.google.com/macros/s/' + SCRIPT_ID + '/exec';
+    // ⚠️ Замените на ваш Apps Script URL
+    const API_URL = 'https://script.google.com/macros/s/AKfycbw2VUYFfZJSqLHm3qG9mqlXKXxCjMnL4nNyzK4oQ6qO_U6hBG9O4wJLCyh3oKaox0L2/exec';
     
     let currentPage = 'home';
     let categories = { expenses: [], incomes: [] };
-    let editingRow = null;
-    let editType = 'Расход';
+    let editingRow = null, editType = 'Расход';
     
     let settings = {
       font: 'inter', wallpaper: 'none', customWallpaper: '',
@@ -143,34 +141,10 @@
     };
     
     const wallpapers = {
-      none: 'Без обоев', gradient1: 'Фиолетовый градиент', gradient2: 'Розовый градиент',
-      gradient3: 'Голубой градиент', gradient4: 'Зеленый градиент', gradient5: 'Оранжевый градиент',
+      none: 'Без обоев', gradient1: 'Фиолетовый', gradient2: 'Розовый',
+      gradient3: 'Голубой', gradient4: 'Зеленый', gradient5: 'Оранжевый',
       waves: 'Волны', mountains: 'Горы', custom: 'Своё изображение'
     };
-    
-    /**
-     * Вызов API через iframe (обходит CORS)
-     */
-    function callApi(action, data, callback) {
-      const callbackName = 'cb_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
-      
-      window[callbackName] = function(result) {
-        delete window[callbackName];
-        document.body.removeChild(document.getElementById('iframe_' + callbackName));
-        callback(result);
-      };
-      
-      let url = API_URL + '?action=' + action + '&callback=' + callbackName;
-      if (data && Object.keys(data).length > 0) {
-        url += '&data=' + encodeURIComponent(JSON.stringify(data));
-      }
-      
-      const iframe = document.createElement('iframe');
-      iframe.id = 'iframe_' + callbackName;
-      iframe.style.display = 'none';
-      iframe.src = url;
-      document.body.appendChild(iframe);
-    }
     
     function applySettings() {
       document.documentElement.style.setProperty('--font-family', fonts[settings.font].family);
@@ -187,21 +161,48 @@
       }
     }
     
-    function loadSettingsFromServer() {
-      callApi('loadSettings', {}, function(result) {
+    async function callApi(action, data = {}) {
+      return new Promise((resolve, reject) => {
+        const callbackName = 'cb_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
+        
+        window[callbackName] = function(result) {
+          delete window[callbackName];
+          document.head.removeChild(script);
+          resolve(result);
+        };
+        
+        const params = new URLSearchParams({ action: action, callback: callbackName });
+        if (Object.keys(data).length > 0) {
+          params.append('data', JSON.stringify(data));
+        }
+        
+        const script = document.createElement('script');
+        script.src = API_URL + '?' + params.toString();
+        script.onerror = function() {
+          delete window[callbackName];
+          document.head.removeChild(script);
+          reject(new Error('Network error'));
+        };
+        
+        document.head.appendChild(script);
+      });
+    }
+    
+    async function loadSettingsFromServer() {
+      try {
+        const result = await callApi('loadSettings');
         if (result.success) {
           settings = { ...settings, ...result.settings };
           applySettings();
         }
-      });
+      } catch (e) { console.log('Settings not loaded, using defaults'); }
     }
     
     function showPage(page) { currentPage = page; renderPage(); }
     
     function showToast(message, duration = 2000) {
       const toast = document.getElementById('toast');
-      toast.textContent = message;
-      toast.classList.add('show');
+      toast.textContent = message; toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), duration);
     }
     
@@ -210,7 +211,8 @@
     }
     
     function renderHomePage() {
-      document.getElementById('app').innerHTML = `
+      const app = document.getElementById('app');
+      app.innerHTML = `
         <div class="header"><h1>Dashboard</h1></div>
         <div class="container">
           <div class="content-block"><div class="block-title">Баланс</div><div class="balance-amount" id="balance"><span class="loading-pulse">— ₽</span></div></div>
@@ -222,25 +224,42 @@
           <div class="nav-item" onclick="showPage('settings')">Настройки</div>
         </div>
       `;
-      callApi('getBalance', {}, function(r) {
-        const el = document.getElementById('balance');
-        el.textContent = r.success ? formatCurrency(r.balance) + ' ₽' : 'Ошибка';
-        el.classList.remove('loading-pulse');
-      });
-      callApi('getLastTransactions', {limit:15}, function(r) {
-        const c = document.getElementById('transactions');
-        if (!r.success || !r.transactions.length) { c.innerHTML = '<div class="empty-state">Нет операций</div>'; return; }
-        c.innerHTML = r.transactions.map(t => `
-          <div class="transaction-item" onclick="editTransaction(${t.row},'${t.type.replace(/'/g,"\\'")}',${t.amount},'${(t.category||'').replace(/'/g,"\\'")}','${t.date}','${(t.comment||'').replace(/'/g,"\\'")}')">
+      loadBalance();
+      loadTransactions();
+    }
+    
+    async function loadBalance() {
+      try {
+        const result = await callApi('getBalance');
+        const balanceEl = document.getElementById('balance');
+        if (result.success) {
+          balanceEl.textContent = formatCurrency(result.balance) + ' ₽';
+          balanceEl.classList.remove('loading-pulse');
+        }
+      } catch (e) { document.getElementById('balance').textContent = 'Ошибка'; }
+    }
+    
+    async function loadTransactions() {
+      try {
+        const result = await callApi('getLastTransactions', { limit: 15 });
+        const container = document.getElementById('transactions');
+        if (!result.success || !result.transactions || result.transactions.length === 0) {
+          container.innerHTML = '<div class="empty-state">Нет операций</div>';
+          return;
+        }
+        container.innerHTML = result.transactions.map(t => `
+          <div class="transaction-item" onclick="editTransaction(${t.row},'${t.type}',${t.amount},'${(t.category||'').replace(/'/g,"\\'")}','${t.date}','${(t.comment||'').replace(/'/g,"\\'")}')">
             <div class="transaction-info"><div class="transaction-category">${t.category||'Без категории'}</div><div class="transaction-meta"><span>${t.date||'—'}</span>${t.comment?`<span>${t.comment}</span>`:''}</div></div>
             <div class="transaction-amount">${t.type==='Расход'?'−':'+'}${formatCurrency(t.amount)} ₽</div>
-          </div>`).join('');
-      });
+          </div>
+        `).join('');
+      } catch (e) { document.getElementById('transactions').innerHTML = '<div class="empty-state">Ошибка загрузки</div>'; }
     }
     
     function renderAddPage() {
+      const app = document.getElementById('app');
       const today = new Date().toISOString().split('T')[0];
-      document.getElementById('app').innerHTML = `
+      app.innerHTML = `
         <div class="header"><h1>Add Transaction</h1></div>
         <div class="container">
           <div class="type-selector">
@@ -263,36 +282,49 @@
           <div class="nav-item" onclick="showPage('settings')">Настройки</div>
         </div>
       `;
-      callApi('getCategories', {}, function(r) {
-        if (r.success) categories = { expenses: r.expenses||[], incomes: r.incomes||[] };
-        setType('Расход');
-      });
+      loadCategories();
+      setType('Расход');
+    }
+    
+    async function loadCategories() {
+      try {
+        const result = await callApi('getCategories');
+        if (result.success) categories = { expenses: result.expenses || [], incomes: result.incomes || [] };
+      } catch (e) {}
     }
     
     function setType(type) {
       document.querySelectorAll('.type-btn').forEach(b => b.classList.toggle('active', b.dataset.type === type));
-      const s = document.getElementById('category'); if (!s) return;
+      const s = document.getElementById('category');
+      if (!s) return;
       const list = type === 'Расход' ? categories.expenses : categories.incomes;
-      s.innerHTML = list.length ? '<option value="">Выберите</option>'+list.map(c=>`<option value="${c}">${c}</option>`).join('') : '<option value="">Нет категорий</option>';
+      s.innerHTML = list.length === 0 ? '<option value="">Нет категорий</option>' : '<option value="">Выберите</option>' + list.map(c => `<option value="${c}">${c}</option>`).join('');
     }
     
-    function addTransaction() {
+    async function addTransaction() {
       const type = (document.querySelector('.type-btn.active')?.dataset.type) || 'Расход';
-      const amount = parseFloat(document.getElementById('amount')?.value||'0');
+      const amount = parseFloat(document.getElementById('amount')?.value || '0');
       const category = document.getElementById('category')?.value;
       const date = document.getElementById('date')?.value;
-      const comment = document.getElementById('comment')?.value||'';
+      const comment = document.getElementById('comment')?.value || '';
       if (!amount || !category || !date) return showToast('Заполните все поля');
-      const btn = document.querySelector('.action-btn'); btn.disabled=true; btn.textContent='Добавление...';
-      callApi('addTransaction', {type,amount,category,date,comment}, function() {
-        showToast('Операция добавлена'); showPage('home');
-      });
+      const btn = document.querySelector('.action-btn');
+      btn.disabled = true; btn.textContent = 'Добавление...';
+      try {
+        await callApi('addTransaction', { type, amount, category, date, comment });
+        showToast('Операция добавлена');
+        showPage('home');
+      } catch (e) {
+        showToast('Ошибка');
+        btn.disabled = false; btn.textContent = 'Добавить операцию';
+      }
     }
     
     function editTransaction(row, type, amount, category, date, comment) {
-      currentPage='edit'; editingRow=row; editType=type;
+      currentPage = 'edit'; editingRow = row; editType = type;
+      const app = document.getElementById('app');
       const fd = formatDateForInput(date);
-      document.getElementById('app').innerHTML = `
+      app.innerHTML = `
         <div class="header"><h1>Edit Transaction</h1></div>
         <div class="container">
           <div class="type-selector">
@@ -302,7 +334,7 @@
           <div class="content-block">
             <table class="form-table">
               <tr><td>Сумма</td><td><input type="number" id="editAmount" class="form-input" value="${amount}" step="0.01" min="0" inputmode="decimal"></td></tr>
-              <tr><td>Категория</td><td><select id="editCategory" class="form-select">${getCategoriesOptions(type,category)}</select></td></tr>
+              <tr><td>Категория</td><td><select id="editCategory" class="form-select">${getCatOpts(type,category)}</select></td></tr>
               <tr><td>Дата</td><td><input type="date" id="editDate" class="form-input" value="${fd}"></td></tr>
             </table>
             <div class="comment-field"><input type="text" id="editComment" class="comment-input" placeholder="Комментарий" value="${comment.replace(/"/g,'&quot;')}"></div>
@@ -316,68 +348,76 @@
           <div class="nav-item" onclick="showPage('settings')">Настройки</div>
         </div>
       `;
-      callApi('getCategories', {}, function(r) {
-        if (r.success) categories = { expenses: r.expenses||[], incomes: r.incomes||[] };
-      });
+      loadCategories();
     }
     
     function setEditType(type) {
-      editType=type;
+      editType = type;
       document.querySelectorAll('.type-btn').forEach(b => b.classList.toggle('active', b.dataset.type === type));
-      const s = document.getElementById('editCategory'); if (!s) return;
+      const s = document.getElementById('editCategory');
+      if (!s) return;
       const list = type === 'Расход' ? categories.expenses : categories.incomes;
-      s.innerHTML = list.length ? list.map(c=>`<option value="${c}">${c}</option>`).join('') : '<option value="">Нет категорий</option>';
+      s.innerHTML = list.length === 0 ? '<option value="">Нет категорий</option>' : list.map(c => `<option value="${c}">${c}</option>`).join('');
     }
     
-    function getCategoriesOptions(type, selected) {
+    function getCatOpts(type, sel) {
       const list = type === 'Расход' ? categories.expenses : categories.incomes;
-      return list.length ? list.map(c=>`<option value="${c}" ${c===selected?'selected':''}>${c}</option>`).join('') : '<option value="">Нет категорий</option>';
+      return list.length === 0 ? '<option value="">Нет категорий</option>' : list.map(c => `<option value="${c}" ${c===sel?'selected':''}>${c}</option>`).join('');
     }
     
-    function formatDateForInput(s) {
-      if (!s||s==='—') return '';
-      const p = s.split('.'); if (p.length===3) return `${p[2]}-${p[1]}-${p[0]}`;
-      const sp = s.split('/'); if (sp.length===3) return `${sp[2]}-${sp[0]}-${sp[1]}`;
-      return s;
+    function formatDateForInput(d) {
+      if (!d || d === '—') return '';
+      const p = d.split('.');
+      if (p.length === 3) return `${p[2]}-${p[1]}-${p[0]}`;
+      const s = d.split('/');
+      if (s.length === 3) return `${s[2]}-${s[0]}-${s[1]}`;
+      return d;
     }
     
-    function saveEdit(row) {
+    async function saveEdit(row) {
       const type = (document.querySelector('.type-btn.active')?.dataset.type) || editType;
-      const amount = parseFloat(document.getElementById('editAmount')?.value||'0');
+      const amount = parseFloat(document.getElementById('editAmount')?.value || '0');
       const category = document.getElementById('editCategory')?.value;
       const date = document.getElementById('editDate')?.value;
-      const comment = document.getElementById('editComment')?.value||'';
+      const comment = document.getElementById('editComment')?.value || '';
       if (!amount || !category || !date) return showToast('Заполните все поля');
-      const btn = document.querySelector('.action-btn'); btn.disabled=true; btn.textContent='Сохранение...';
-      callApi('updateTransaction', {row,type,amount,category,date,comment}, function() {
-        showToast('Изменения сохранены'); showPage('home');
-      });
+      const btn = document.querySelector('.action-btn');
+      btn.disabled = true; btn.textContent = 'Сохранение...';
+      try {
+        await callApi('updateTransaction', { row, type, amount, category, date, comment });
+        showToast('Изменения сохранены');
+        showPage('home');
+      } catch (e) {
+        showToast('Ошибка');
+        btn.disabled = false; btn.textContent = 'Сохранить изменения';
+      }
     }
     
     function renderSettingsPage() {
-      const fo = Object.entries(fonts).map(([k,v])=>`<option value="${k}" ${settings.font===k?'selected':''}>${v.name}</option>`).join('');
-      const wo = Object.entries(wallpapers).map(([k,v])=>`<option value="${k}" ${settings.wallpaper===k?'selected':''}>${v}</option>`).join('');
-      document.getElementById('app').innerHTML = `
+      const app = document.getElementById('app');
+      const fo = Object.entries(fonts).map(([k,v]) => `<option value="${k}" ${settings.font===k?'selected':''}>${v.name}</option>`).join('');
+      const wo = Object.entries(wallpapers).map(([k,v]) => `<option value="${k}" ${settings.wallpaper===k?'selected':''}>${v}</option>`).join('');
+      app.innerHTML = `
         <div class="header"><h1>Settings</h1></div>
         <div class="container">
           <div class="content-block">
             <div class="block-title">Оформление</div>
             <div class="setting-item"><span class="setting-label">Шрифт</span><select id="fontSelect" class="setting-select">${fo}</select></div>
-            <div class="setting-item"><span class="setting-label">Обои</span><select id="wallpaperSelect" class="setting-select" onchange="updateWallpaperPreview(this.value)">${wo}</select></div>
-            <div id="customWallpaperSection" style="display:${settings.wallpaper==='custom'?'block':'none'}"><input type="text" id="customWallpaperUrl" class="custom-url-input" placeholder="Ссылка на изображение (Google Drive)" value="${settings.customWallpaper}"><div style="font-size:13px;opacity:0.5;margin-top:8px">Загрузите изображение в Google Drive и вставьте ссылку</div></div>
-            <div class="setting-item"><span class="setting-label">Анимации</span><div id="animationSwitch" class="switch ${settings.animation?'active':''}" onclick="toggleSwitch('animation')"></div></div>
-            <div class="setting-item"><span class="setting-label">Blur эффекты</span><div id="blurSwitch" class="switch ${settings.blur?'active':''}" onclick="toggleSwitch('blur')"></div></div>
-            <div class="setting-item" style="flex-direction:column;align-items:flex-start;gap:8px"><div style="display:flex;justify-content:space-between;width:100%"><span class="setting-label">Прозрачность</span><span class="opacity-value" id="opacityValue">${settings.opacity}%</span></div><input type="range" id="opacitySlider" class="opacity-slider" min="0" max="100" value="${settings.opacity}" oninput="updateOpacity(this.value)"></div>
+            <div class="setting-item"><span class="setting-label">Обои</span><select id="wallpaperSelect" class="setting-select" onchange="updateWallpaper(this.value)">${wo}</select></div>
+            <div id="cws" style="display:${settings.wallpaper==='custom'?'block':'none'};"><input type="text" id="customUrl" class="custom-url-input" placeholder="Ссылка (Google Drive)" value="${settings.customWallpaper}"><div style="font-size:13px;opacity:0.5;margin-top:8px;">Загрузите в Google Drive, откройте доступ по ссылке</div></div>
+            <div class="setting-item"><span class="setting-label">Анимации</span><div id="animSw" class="switch ${settings.animation?'active':''}" onclick="toggle('animation')"></div></div>
+            <div class="setting-item"><span class="setting-label">Blur</span><div id="blurSw" class="switch ${settings.blur?'active':''}" onclick="toggle('blur')"></div></div>
+            <div class="setting-item" style="flex-direction:column;align-items:flex-start;gap:8px;"><div style="display:flex;justify-content:space-between;width:100%;"><span class="setting-label">Прозрачность</span><span class="opacity-value" id="opVal">${settings.opacity}%</span></div><input type="range" id="opSlider" class="opacity-slider" min="0" max="100" value="${settings.opacity}" oninput="updOpacity(this.value)"></div>
           </div>
           <div class="content-block">
             <div class="block-title">Цвета</div>
-            <div class="setting-item"><span class="setting-label">Фон</span><div class="color-circle" style="background:${settings.backgroundColor}"><input type="color" id="bgColor" value="${settings.backgroundColor}" onchange="updateColorPreview('bg',this.value)"></div></div>
-            <div class="setting-item"><span class="setting-label">Основной цвет</span><div class="color-circle" style="background:${settings.primaryColor}"><input type="color" id="primaryColor" value="${settings.primaryColor}" onchange="updateColorPreview('primary',this.value)"></div></div>
-            <div class="setting-item"><span class="setting-label">Фон Header</span><div class="color-circle" style="background:${settings.headerBgColor}"><input type="color" id="headerBgColor" value="${settings.headerBgColor}" onchange="updateColorPreview('headerBg',this.value)"></div></div>
-            <div class="setting-item"><span class="setting-label">Текст Header</span><div class="color-circle" style="background:${settings.headerTextColor}"><input type="color" id="headerTextColor" value="${settings.headerTextColor}" onchange="updateColorPreview('headerText',this.value)"></div></div>
+            <div class="setting-item"><span class="setting-label">Фон</span><div class="color-circle" style="background:${settings.backgroundColor}"><input type="color" value="${settings.backgroundColor}" onchange="updColor('bg',this.value)"></div></div>
+            <div class="setting-item"><span class="setting-label">Основной</span><div class="color-circle" style="background:${settings.primaryColor}"><input type="color" value="${settings.primaryColor}" onchange="updColor('primary',this.value)"></div></div>
+            <div class="setting-item"><span class="setting-label">Header фон</span><div class="color-circle" style="background:${settings.headerBgColor}"><input type="color" value="${settings.headerBgColor}" onchange="updColor('hBg',this.value)"></div></div>
+            <div class="setting-item"><span class="setting-label">Header текст</span><div class="color-circle" style="background:${settings.headerTextColor}"><input type="color" value="${settings.headerTextColor}" onchange="updColor('hTxt',this.value)"></div></div>
           </div>
-          <button class="action-btn" onclick="saveAllSettings()">Сохранить настройки</button>
-          <button class="reset-btn" onclick="resetAllSettings()">Сбросить настройки</button>
+          <button class="action-btn" onclick="saveSettings()">Сохранить</button>
+          <button class="reset-btn" onclick="resetSettings()">Сбросить</button>
         </div>
         <div class="bottom-nav">
           <div class="nav-item" onclick="showPage('home')">Обзор</div>
@@ -387,16 +427,33 @@
       `;
     }
     
-    function updateWallpaperPreview(v){settings.wallpaper=v;applySettings();const cs=document.getElementById('customWallpaperSection');if(cs)cs.style.display=v==='custom'?'block':'none'}
-    function updateColorPreview(t,v){const c=event.target.closest('.color-circle');if(c)c.style.background=v;if(t==='bg')settings.backgroundColor=v;else if(t==='primary')settings.primaryColor=v;else if(t==='headerBg')settings.headerBgColor=v;else if(t==='headerText')settings.headerTextColor=v;applySettings()}
-    function updateOpacity(v){settings.opacity=parseInt(v);const ov=document.getElementById('opacityValue');if(ov)ov.textContent=v+'%';applySettings()}
-    function toggleSwitch(t){settings[t]=!settings[t];const sw=document.getElementById(t+'Switch');if(sw)sw.classList.toggle('active',settings[t]);document.body.setAttribute('data-blur',settings.blur);applySettings()}
-    function saveAllSettings(){settings.font=document.getElementById('fontSelect')?.value||settings.font;settings.wallpaper=document.getElementById('wallpaperSelect')?.value||settings.wallpaper;settings.customWallpaper=document.getElementById('customWallpaperUrl')?.value||'';applySettings();callApi('saveSettings',settings,function(){showToast('Настройки сохранены')})}
-    function resetAllSettings(){settings={font:'inter',wallpaper:'none',customWallpaper:'',animation:true,blur:true,opacity:0,backgroundColor:'#ffffff',primaryColor:'#1a1a1a',headerBgColor:'#1a1a1a',headerTextColor:'#ffffff'};applySettings();callApi('saveSettings',settings,function(){if(currentPage==='settings')renderSettingsPage();showToast('Настройки сброшены')})}
-    function renderPage(){if(currentPage==='home')renderHomePage();else if(currentPage==='add')renderAddPage();else if(currentPage==='edit')renderHomePage();else if(currentPage==='settings')renderSettingsPage()}
+    function updateWallpaper(v) { settings.wallpaper = v; applySettings(); document.getElementById('cws').style.display = v === 'custom' ? 'block' : 'none'; }
+    function updColor(t, v) { const c = event.target.closest('.color-circle'); if (c) c.style.background = v; if (t==='bg') settings.backgroundColor=v; else if (t==='primary') settings.primaryColor=v; else if (t==='hBg') settings.headerBgColor=v; else if (t==='hTxt') settings.headerTextColor=v; applySettings(); }
+    function updOpacity(v) { settings.opacity = parseInt(v); document.getElementById('opVal').textContent = v + '%'; applySettings(); }
+    function toggle(t) { settings[t] = !settings[t]; document.getElementById(t==='animation'?'animSw':'blurSw').classList.toggle('active', settings[t]); if (t==='blur') document.body.setAttribute('data-blur', settings.blur); applySettings(); }
+    async function saveSettings() {
+      settings.font = document.getElementById('fontSelect')?.value || settings.font;
+      settings.wallpaper = document.getElementById('wallpaperSelect')?.value || settings.wallpaper;
+      settings.customWallpaper = document.getElementById('customUrl')?.value || '';
+      applySettings();
+      try { await callApi('saveSettings', settings); showToast('Сохранено'); } catch (e) { showToast('Ошибка'); }
+    }
+    async function resetSettings() {
+      settings = { font: 'inter', wallpaper: 'none', customWallpaper: '', animation: true, blur: true, opacity: 0, backgroundColor: '#ffffff', primaryColor: '#1a1a1a', headerBgColor: '#1a1a1a', headerTextColor: '#ffffff' };
+      applySettings();
+      try { await callApi('saveSettings', settings); showToast('Сброшено'); } catch (e) {}
+      if (currentPage === 'settings') renderSettingsPage();
+    }
     
-    window.onload = function() {
-      loadSettingsFromServer();
+    function renderPage() {
+      if (currentPage === 'home') renderHomePage();
+      else if (currentPage === 'add') renderAddPage();
+      else if (currentPage === 'edit') renderHomePage();
+      else if (currentPage === 'settings') renderSettingsPage();
+    }
+    
+    window.onload = async () => {
+      await loadSettingsFromServer();
       renderPage();
     };
   </script>
