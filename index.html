@@ -6,649 +6,351 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Семейный бюджет">
-  <meta name="mobile-web-app-capable" content="yes">
   <meta name="theme-color" content="#1a1a1a">
-  
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231a1a1a'/%3E%3Cpath d='M30 35h40c3 0 5 2 5 5v20c0 3-2 5-5 5H30c-3 0-5-2-5-5V40c0-3 2-5 5-5z' fill='none' stroke='white' stroke-width='4'/%3E%3Ccircle cx='50' cy='50' r='8' fill='white'/%3E%3Cpath d='M70 45h10c2 0 3 1 3 3v4c0 2-1 3-3 3h-10' fill='none' stroke='white' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
-  
-  <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22%D0%A1%D0%B5%D0%BC%D0%B5%D0%B9%D0%BD%D1%8B%D0%B9%20%D0%B1%D1%8E%D0%B4%D0%B6%D0%B5%D1%82%202026%22%2C%22short_name%22%3A%22%D0%91%D1%8E%D0%B4%D0%B6%D0%B5%D1%82%22%2C%22display%22%3A%22standalone%22%2C%22orientation%22%3A%22portrait%22%2C%22background_color%22%3A%22%23ffffff%22%2C%22theme_color%22%3A%22%231a1a1a%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20100%20100'%253E%253Crect%20width%3D'100'%20height%3D'100'%20rx%3D'22'%20fill%3D'%25231a1a1a'%2F%253E%253Cpath%20d%3D'M30%2035h40c3%200%205%202%205%205v20c0%203-2%205-5%205H30c-3%200-5-2-5-5V40c0-3%202-5%205-5z'%20fill%3D'none'%20stroke%3D'white'%20stroke-width%3D'4'%2F%253E%253Ccircle%20cx%3D'50'%20cy%3D'50'%20r%3D'8'%20fill%3D'white'%2F%253E%253Cpath%20d%3D'M70%2045h10c2%200%203%201%203%203v4c0%202-1%203-3%203h-10'%20fill%3D'none'%20stroke%3D'white'%20stroke-width%3D'4'%20stroke-linecap%3D'round'%2F%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D">
-  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600&family=Montserrat:wght@400;500;600&family=Roboto:wght@400;500&family=Rubik:wght@400;500;600&display=swap&subset=cyrillic" rel="stylesheet">
-  
   <title>Семейный бюджет 2026</title>
-  
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--font:'Inter',-apple-system,sans-serif;--bg:#fff;--primary:#1a1a1a;--hbg:#1a1a1a;--htext:#fff;--opacity:1}
+    body{font-family:var(--font);background:0 0;color:var(--primary);min-height:100vh;padding:0 0 env(safe-area-inset-bottom,0);transition:.3s}
+    body::after,body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none}
+    body::after{background:var(--bg);z-index:-1}
+    body::before{z-index:0}
+    [data-wallpaper="gradient1"]::before{background:linear-gradient(135deg,#667eea,#764ba2)}
+    [data-wallpaper="gradient2"]::before{background:linear-gradient(135deg,#f093fb,#f5576c)}
+    [data-wallpaper="gradient3"]::before{background:linear-gradient(135deg,#4facfe,#00f2fe)}
+    [data-wallpaper="gradient4"]::before{background:linear-gradient(135deg,#43e97b,#38f9d7)}
+    [data-wallpaper="gradient5"]::before{background:linear-gradient(135deg,#fa709a,#fee140)}
+    [data-wallpaper="none"]::before{display:none}
+    #app{position:relative;z-index:2}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes scaleIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+    @keyframes slideIn{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+    [data-animation="true"] .container{animation:fadeIn .4s ease-out}
+    [data-animation="true"] .card{animation:scaleIn .5s ease-out}
+    [data-animation="true"] .tx{animation:slideIn .3s ease-out both}
+    [data-animation="true"] .tx:nth-child(1){animation-delay:.05s}
+    [data-animation="true"] .tx:nth-child(2){animation-delay:.1s}
+    [data-animation="true"] .tx:nth-child(3){animation-delay:.15s}
+    [data-animation="true"] .tx:nth-child(4){animation-delay:.2s}
+    [data-animation="true"] .tx:nth-child(5){animation-delay:.25s}
+    .skeleton{animation:pulse 1.5s ease-in-out infinite}
     
-    :root {
-      --font-family: 'Inter', -apple-system, sans-serif;
-      --bg-color: #ffffff;
-      --primary-color: #1a1a1a;
-      --header-bg-color: #1a1a1a;
-      --header-text-color: #ffffff;
-      --block-opacity: 1;
-      --wallpaper: none;
-    }
+    /* Header */
+    .hdr{background:var(--hbg);color:var(--htext);padding:35px 20px;position:sticky;top:0;z-index:10;text-align:center}
+    .hdr h1{font-size:34px;font-weight:600;letter-spacing:-.5px}
+    .container{max-width:100%;margin:0 auto;padding:20px}
     
-    body {
-      font-family: var(--font-family);
-      background: transparent;
-      color: var(--primary-color);
-      min-height: 100vh;
-      padding: 0 0 env(safe-area-inset-bottom, 0px) 0;
-      position: relative;
-      transition: background 0.3s ease, color 0.3s ease;
-    }
+    /* Cards */
+    .card{background:color-mix(in srgb,var(--bg) calc((1-var(--opacity))*100%),transparent);border-radius:20px;padding:20px;margin-bottom:20px;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+    [data-blur="true"] .card{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+    .card-title{font-size:17px;font-weight:600;color:var(--primary);margin-bottom:16px}
+    .balance{font-size:52px;font-weight:600;color:var(--primary);text-align:center}
     
-    body::after {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--bg-color);
-      z-index: -1;
-      pointer-events: none;
-    }
+    /* Transactions */
+    .tx-list{border-radius:12px;overflow:hidden}
+    .tx{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid rgba(128,128,128,.08);cursor:pointer}
+    .tx:active{background:rgba(128,128,128,.05)}
+    .tx:last-child{border-bottom:none}
+    .tx-info{flex:1}
+    .tx-cat{font-size:17px;font-weight:500;margin-bottom:4px}
+    .tx-meta{display:flex;gap:12px;font-size:14px;opacity:.5}
+    .tx-amount{font-size:20px;font-weight:500;letter-spacing:-.3px}
     
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-    }
+    /* Navigation */
+    .nav{position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:1px solid rgba(128,128,128,.08);padding:8px 20px calc(8px + env(safe-area-inset-bottom,0));display:flex;gap:8px;z-index:10}
+    .nav-btn{flex:1;text-align:center;padding:12px;border-radius:14px;opacity:.5;font-size:15px;font-weight:500;cursor:pointer;transition:.2s}
+    .nav-btn.active{opacity:1;background:var(--primary);color:var(--bg)}
+    .nav-btn:hover{opacity:.8}
     
-    body[data-wallpaper="gradient1"]::before { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-    body[data-wallpaper="gradient2"]::before { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-    body[data-wallpaper="gradient3"]::before { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
-    body[data-wallpaper="gradient4"]::before { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
-    body[data-wallpaper="gradient5"]::before { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+    /* Type Selector */
+    .types{display:flex;gap:12px;margin-bottom:20px;background:color-mix(in srgb,var(--bg) calc((1-var(--opacity))*100%),transparent);padding:4px;border-radius:16px;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+    [data-blur="true"] .types{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+    .type-btn{flex:1;padding:16px;border:none;background:0 0;border-radius:12px;font-size:17px;font-weight:500;opacity:.5;cursor:pointer;transition:.2s;font-family:inherit}
+    .type-btn.active{background:var(--primary);color:var(--bg);opacity:1}
+    .type-btn:active{transform:scale(.97)}
     
-    body[data-wallpaper="waves"]::before {
-      background: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 120%22%3E%3Cpath d=%22M0 64L50 58.7C100 53 200 43 300 48C400 53 500 75 600 80C700 85 800 75 900 69.3C1000 64 1100 64 1150 64L1200 64V120H1150C1100 120 1000 120 900 120C800 120 700 120 600 120C500 120 400 120 300 120C200 120 100 120 50 120H0Z%22 fill=%22%23667eea%22 opacity=%220.15%22/%3E%3C/svg%3E') repeat-x bottom;
-      background-size: 100% auto; background-color: #667eea;
-    }
+    /* Form */
+    .form-row{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid rgba(128,128,128,.08)}
+    .form-row:last-child{border-bottom:none}
+    .form-label{font-size:17px;flex:0 0 40%}
+    .form-value{flex:1;text-align:right}
+    .input{border:none;background:0 0;font-size:17px;color:var(--primary);text-align:right;outline:none;width:100%;font-family:inherit}
+    .input::placeholder{opacity:.3}
+    .select{border:none;background:0 0;font-size:17px;color:var(--primary);text-align:right;outline:none;width:100%;font-family:inherit;cursor:pointer;appearance:none}
+    .comment{margin-top:16px;width:100%;padding:14px;border:none;background:color-mix(in srgb,var(--bg) 70%,transparent);border-radius:12px;font-size:15px;outline:none;font-family:inherit}
+    .comment::placeholder{opacity:.5}
     
-    body[data-wallpaper="mountains"]::before {
-      background: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 120%22%3E%3Cpath d=%22M0 96L37.5 90.7C75 85 150 75 225 80C300 85 375 107 450 112C525 117 600 107 675 101.3C750 96 825 96 900 101.3C975 107 1050 117 1125 112L1200 107V120H1125C1050 120 975 120 900 120C825 120 750 120 675 120C600 120 525 120 450 120C375 120 300 120 225 120C150 120 75 120 37.5 120H0Z%22 fill=%22%23764ba2%22 opacity=%220.15%22/%3E%3C/svg%3E') repeat-x bottom;
-      background-size: 100% auto; background-color: #764ba2;
-    }
+    /* Buttons */
+    .btn{width:100%;padding:18px;background:color-mix(in srgb,var(--bg) calc((1-var(--opacity))*100%),transparent);color:var(--primary);border:none;border-radius:16px;font-size:17px;font-weight:500;cursor:pointer;transition:.2s;font-family:inherit;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+    [data-blur="true"] .btn{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+    .btn:active{opacity:.8;transform:scale(.98)}
+    .btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+    .btn-outline{background:0 0;border:1px solid rgba(128,128,128,.15);box-shadow:none;margin-top:12px}
     
-    body[data-wallpaper="custom"]::before {
-      background-image: var(--custom-wallpaper);
-      background-size: cover; background-position: center;
-    }
+    /* Settings */
+    .setting{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid rgba(128,128,128,.08)}
+    .setting:last-child{border-bottom:none}
+    .setting-label{font-size:16px}
+    .setting-select{padding:8px 12px;border:none;background:0 0;border-radius:10px;font-size:15px;font-family:inherit;cursor:pointer}
+    .slider{width:120px;height:6px;appearance:none;background:rgba(128,128,128,.2);border-radius:3px;outline:none}
+    .slider::-webkit-slider-thumb{appearance:none;width:24px;height:24px;border-radius:50%;background:var(--primary);cursor:pointer;border:2px solid var(--bg);box-shadow:0 2px 6px rgba(0,0,0,.15)}
+    .color-pick{width:40px;height:40px;border-radius:50%;border:2px solid rgba(128,128,128,.2);cursor:pointer;position:relative;overflow:hidden}
+    .color-pick input{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:200%;height:200%;opacity:0;cursor:pointer}
+    .switch{position:relative;width:50px;height:28px;background:rgba(128,128,128,.2);border-radius:14px;cursor:pointer;transition:.2s}
+    .switch.on{background:var(--primary)}
+    .switch::after{content:'';position:absolute;width:24px;height:24px;background:#fff;border-radius:12px;top:2px;left:2px;transition:.2s}
+    .switch.on::after{transform:translateX(22px)}
     
-    body[data-wallpaper="none"]::before { display: none; }
-    
-    #app { position: relative; z-index: 2; }
-    
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-    @keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-    
-    [data-animation="true"] .container { animation: fadeIn 0.4s ease-out; }
-    [data-animation="true"] .content-block { animation: scaleIn 0.5s ease-out; }
-    [data-animation="true"] .transaction-item { animation: slideIn 0.3s ease-out; animation-fill-mode: both; }
-    [data-animation="true"] .transaction-item:nth-child(1) { animation-delay: 0.05s; }
-    [data-animation="true"] .transaction-item:nth-child(2) { animation-delay: 0.1s; }
-    [data-animation="true"] .transaction-item:nth-child(3) { animation-delay: 0.15s; }
-    [data-animation="true"] .transaction-item:nth-child(4) { animation-delay: 0.2s; }
-    [data-animation="true"] .transaction-item:nth-child(5) { animation-delay: 0.25s; }
-    .loading-pulse { animation: pulse 1.5s ease-in-out infinite; }
-    
-    .header {
-      background: var(--header-bg-color);
-      color: var(--header-text-color);
-      padding: 35px 20px;
-      position: sticky;
-      top: 0; z-index: 10;
-      text-align: center;
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-    .header h1 { font-size: 34px; font-weight: 600; letter-spacing: -0.5px; }
-    .container { max-width: 100%; margin: 0 auto; padding: 20px; }
-    
-    .content-block {
-      background: color-mix(in srgb, var(--bg-color) calc((1 - var(--block-opacity)) * 100%), transparent);
-      border-radius: 20px; padding: 20px; margin-bottom: 20px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-      transition: background 0.3s ease;
-    }
-    [data-blur="true"] .content-block { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
-    .block-title { font-size: 17px; font-weight: 600; color: var(--primary-color); margin-bottom: 16px; }
-    .balance-amount { color: var(--primary-color); font-size: 52px; font-weight: 600; letter-spacing: -1.5px; text-align: center; }
-    .transaction-list { border-radius: 12px; overflow: hidden; }
-    
-    .transaction-item {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 16px 0; border-bottom: 1px solid rgba(128,128,128,0.08);
-      transition: background 0.2s ease; cursor: pointer;
-    }
-    .transaction-item:active { background: rgba(128,128,128,0.05); }
-    .transaction-item:last-child { border-bottom: none; }
-    .transaction-info { flex: 1; }
-    .transaction-category { font-size: 17px; font-weight: 500; color: var(--primary-color); margin-bottom: 4px; }
-    .transaction-meta { display: flex; gap: 12px; font-size: 14px; color: var(--primary-color); opacity: 0.5; }
-    .transaction-amount { font-size: 20px; font-weight: 500; letter-spacing: -0.3px; color: var(--primary-color); }
-    .empty-state { padding: 32px 16px; text-align: center; color: var(--primary-color); opacity: 0.4; font-size: 15px; }
-    
-    .bottom-nav {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      background: var(--bg-color);
-      border-top: 1px solid rgba(128,128,128,0.08);
-      padding: 8px 20px calc(8px + env(safe-area-inset-bottom, 0px)) 20px;
-      display: flex; justify-content: space-around; gap: 8px; z-index: 10;
-    }
-    .nav-item {
-      flex: 1; text-align: center; padding: 12px; border-radius: 14px;
-      color: var(--primary-color); opacity: 0.5; font-size: 15px; font-weight: 500;
-      cursor: pointer; transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
-    }
-    .nav-item.active { opacity: 1; background: var(--primary-color); color: var(--bg-color); }
-    .nav-item:active { transform: scale(0.96); }
-    
-    .type-selector {
-      display: flex; gap: 12px; margin-bottom: 20px;
-      background: color-mix(in srgb, var(--bg-color) calc((1 - var(--block-opacity)) * 100%), transparent);
-      padding: 4px; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-    }
-    [data-blur="true"] .type-selector { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
-    .type-btn {
-      flex: 1; padding: 16px; border: none; background: transparent; border-radius: 12px;
-      font-size: 17px; font-weight: 500; color: var(--primary-color); opacity: 0.5;
-      cursor: pointer; transition: all 0.2s cubic-bezier(0.4,0,0.2,1); font-family: inherit;
-    }
-    .type-btn.active { background: var(--primary-color); color: var(--bg-color); opacity: 1; }
-    .type-btn:active { transform: scale(0.97); }
-    
-    .form-table { width: 100%; border-collapse: collapse; }
-    .form-table tr { border-bottom: 1px solid rgba(128,128,128,0.08); }
-    .form-table tr:last-child { border-bottom: none; }
-    .form-table td { padding: 18px 0; vertical-align: middle; }
-    .form-table td:first-child { color: var(--primary-color); font-size: 17px; font-weight: 400; width: 40%; }
-    .form-table td:last-child { text-align: right; width: 60%; }
-    .form-input, .form-select {
-      border: none; background: transparent; font-size: 17px; color: var(--primary-color);
-      text-align: right; outline: none; width: 100%; font-family: inherit; padding: 0; box-sizing: border-box;
-    }
-    .form-input::placeholder { color: var(--primary-color); opacity: 0.3; }
-    .form-select { cursor: pointer; -webkit-appearance: none; appearance: none; }
-    .comment-field { padding-top: 16px; }
-    .comment-input {
-      width: 100%; padding: 14px; border: none; background: color-mix(in srgb, var(--bg-color) 70%, transparent);
-      border-radius: 12px; font-size: 15px; color: var(--primary-color); outline: none;
-      font-family: inherit; transition: background 0.2s ease;
-    }
-    .comment-input::placeholder { color: var(--primary-color); opacity: 0.5; }
-    
-    .action-btn {
-      width: 100%; padding: 18px;
-      background: color-mix(in srgb, var(--bg-color) calc((1 - var(--block-opacity)) * 100%), transparent);
-      color: var(--primary-color); border: none; border-radius: 16px;
-      font-size: 17px; font-weight: 500; cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.4,0,0.2,1); font-family: inherit;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-    }
-    [data-blur="true"] .action-btn { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
-    .action-btn:active { opacity: 0.8; transform: scale(0.98); }
-    .action-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-    .reset-btn {
-      width: 100%; padding: 18px; background: transparent; color: var(--primary-color);
-      border: 1px solid rgba(128,128,128,0.15); border-radius: 16px;
-      font-size: 17px; font-weight: 500; cursor: pointer; transition: all 0.2s ease;
-      margin-top: 12px; font-family: inherit;
-    }
-    .reset-btn:active { background: rgba(128,128,128,0.05); }
-    
-    .setting-item {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 14px 0; border-bottom: 1px solid rgba(128,128,128,0.08);
-    }
-    .setting-item:last-child { border-bottom: none; }
-    .setting-label { color: var(--primary-color); font-size: 16px; }
-    .setting-select {
-      padding: 8px 12px; border: none; background: transparent; color: var(--primary-color);
-      border-radius: 10px; font-size: 15px; font-family: inherit; cursor: pointer; outline: none;
-    }
-    .opacity-slider {
-      width: 120px; height: 6px; -webkit-appearance: none; appearance: none;
-      background: rgba(128,128,128,0.2); border-radius: 3px; outline: none;
-    }
-    .opacity-slider::-webkit-slider-thumb {
-      -webkit-appearance: none; appearance: none; width: 24px; height: 24px;
-      border-radius: 50%; background: var(--primary-color); cursor: pointer;
-      border: 2px solid var(--bg-color); box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-    }
-    .opacity-value { font-size: 14px; color: var(--primary-color); opacity: 0.6; min-width: 35px; text-align: right; }
-    .color-circle {
-      width: 40px; height: 40px; border-radius: 50%; border: 2px solid rgba(128,128,128,0.2);
-      cursor: pointer; transition: transform 0.2s ease; position: relative; overflow: hidden;
-    }
-    .color-circle:active { transform: scale(0.95); }
-    .color-circle input[type="color"] {
-      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-      width: 200%; height: 200%; border: none; padding: 0; cursor: pointer; opacity: 0;
-    }
-    .custom-url-input {
-      margin-top: 16px; width: 100%; padding: 14px; border: none;
-      background: color-mix(in srgb, var(--bg-color) 70%, transparent);
-      border-radius: 12px; font-size: 15px; color: var(--primary-color); outline: none; font-family: inherit;
-    }
-    .custom-url-input::placeholder { color: var(--primary-color); opacity: 0.3; }
-    .switch {
-      position: relative; width: 50px; height: 28px; background: rgba(128,128,128,0.2);
-      border-radius: 14px; cursor: pointer; transition: background 0.2s ease;
-    }
-    .switch.active { background: var(--primary-color); }
-    .switch::after {
-      content: ''; position: absolute; width: 24px; height: 24px; background: white;
-      border-radius: 12px; top: 2px; left: 2px; transition: transform 0.2s cubic-bezier(0.4,0,0.2,1);
-    }
-    .switch.active::after { transform: translateX(22px); }
-    .toast {
-      position: fixed; top: calc(80px + env(safe-area-inset-top, 0px)); left: 50%; transform: translateX(-50%);
-      background: var(--primary-color); color: var(--bg-color); padding: 14px 24px; border-radius: 30px;
-      font-size: 15px; z-index: 1000; opacity: 0; transition: opacity 0.3s ease;
-      pointer-events: none; white-space: nowrap; box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    }
-    .toast.show { opacity: 1; }
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
-    input[type="number"] { -moz-appearance: textfield; }
+    .toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:var(--primary);color:var(--bg);padding:14px 24px;border-radius:30px;font-size:15px;z-index:1000;opacity:0;transition:.3s;pointer-events:none;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.15)}
+    .toast.show{opacity:1}
+    .empty{padding:32px 16px;text-align:center;opacity:.4}
+    input[type=number]{appearance:textfield}
+    input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{appearance:none;margin:0}
   </style>
 </head>
 <body data-wallpaper="none" data-animation="true" data-blur="true">
   <div class="toast" id="toast"></div>
   <div id="app"></div>
-  
   <script>
-    // ЗАМЕНИТЕ НА ВАШ URL Google Apps Script
-    const API_URL = 'https://script.google.com/macros/s/AKfycbyNKdNvU3erBGtgxGFiCCQrHqr69szpH5nCO06xTYam4fkgcqENw6Grh3S0jw6xgaM7Zg/exec';
-    
-    let currentPage = 'home';
-    let categories = { expenses: [], incomes: [] };
-    let editingRow = null;
-    let editType = 'Расход';
-    
-    let settings = {
-      font: 'inter', wallpaper: 'none', customWallpaper: '',
-      animation: true, blur: true, opacity: 0,
-      backgroundColor: '#ffffff', primaryColor: '#1a1a1a',
-      headerBgColor: '#1a1a1a', headerTextColor: '#ffffff'
+    // ===== CONFIG =====
+    const API = 'https://script.google.com/macros/s/AKfycbyNKdNvU3erBGtgxGFiCCQrHqr69szpH5nCO06xTYam4fkgcqENw6Grh3S0jw6xgaM7Zg/exec';
+    const FONTS = {
+      inter:'Inter', manrope:'Manrope', montserrat:'Montserrat', roboto:'Roboto', rubik:'Rubik'
+    };
+    const WALLPAPERS = {
+      none:'Без обоев', gradient1:'Фиолетовый', gradient2:'Розовый', gradient3:'Голубой',
+      gradient4:'Зеленый', gradient5:'Оранжевый', waves:'Волны', mountains:'Горы', custom:'Своё'
+    };
+    const DEFAULTS = {
+      font:'inter', wallpaper:'none', customWallpaper:'', animation:true, blur:true, opacity:0,
+      bgColor:'#ffffff', primaryColor:'#1a1a1a', headerBgColor:'#1a1a1a', headerTextColor:'#ffffff'
     };
     
-    const fonts = {
-      inter: { name: 'Inter', family: '"Inter", -apple-system, sans-serif' },
-      manrope: { name: 'Manrope', family: '"Manrope", -apple-system, sans-serif' },
-      montserrat: { name: 'Montserrat', family: '"Montserrat", -apple-system, sans-serif' },
-      roboto: { name: 'Roboto', family: '"Roboto", -apple-system, sans-serif' },
-      rubik: { name: 'Rubik', family: '"Rubik", -apple-system, sans-serif' }
-    };
+    // ===== STATE =====
+    let page = 'home', editingRow = null, editType = 'Расход';
+    let categories = { expenses:[], incomes:[] };
+    let S = { ...DEFAULTS };
     
-    const wallpapers = {
-      none: 'Без обоев', gradient1: 'Фиолетовый градиент', gradient2: 'Розовый градиент',
-      gradient3: 'Голубой градиент', gradient4: 'Зеленый градиент', gradient5: 'Оранжевый градиент',
-      waves: 'Волны', mountains: 'Горы', custom: 'Своё изображение'
-    };
-    
-    /**
-     * Вызов API Google Apps Script
-     * @param {string} action - Название функции
-     * @param {object} data - Данные для передачи
-     * @returns {Promise} Результат выполнения
-     */
-      
-    async function callApi(action, data = {}) {
-      let url = API_URL + '?action=' + action;
-      
-      // Для данных добавляем их в URL как параметр
-      if (Object.keys(data).length > 0) {
-        url += '&data=' + encodeURIComponent(JSON.stringify(data));
-      }
-      
-      const response = await fetch(url);
-      if (!response.ok) throw new Error('HTTP error: ' + response.status);
-      return response.json();
+    // ===== API =====
+    async function api(action, data = {}) {
+      let url = `${API}?action=${action}`;
+      if (Object.keys(data).length) url += '&data=' + encodeURIComponent(JSON.stringify(data));
+      return (await fetch(url)).json();
     }
     
+    // ===== SETTINGS =====
     function applySettings() {
-      document.documentElement.style.setProperty('--font-family', fonts[settings.font].family);
-      document.documentElement.style.setProperty('--bg-color', settings.backgroundColor);
-      document.documentElement.style.setProperty('--primary-color', settings.primaryColor);
-      document.documentElement.style.setProperty('--header-bg-color', settings.headerBgColor);
-      document.documentElement.style.setProperty('--header-text-color', settings.headerTextColor);
-      document.documentElement.style.setProperty('--block-opacity', 1 - (settings.opacity / 100));
-      document.body.setAttribute('data-wallpaper', settings.wallpaper);
-      document.body.setAttribute('data-animation', settings.animation);
-      document.body.setAttribute('data-blur', settings.blur);
-      if (settings.customWallpaper) {
-        document.documentElement.style.setProperty('--custom-wallpaper', `url(${settings.customWallpaper})`);
-      }
+      const s = document.documentElement.style;
+      s.setProperty('--font', `"${FONTS[S.font]}",-apple-system,sans-serif`);
+      s.setProperty('--bg', S.bgColor);
+      s.setProperty('--primary', S.primaryColor);
+      s.setProperty('--hbg', S.headerBgColor);
+      s.setProperty('--htext', S.headerTextColor);
+      s.setProperty('--opacity', 1 - S.opacity/100);
+      document.body.setAttribute('data-wallpaper', S.wallpaper);
+      document.body.setAttribute('data-animation', S.animation);
+      document.body.setAttribute('data-blur', S.blur);
+      if (S.customWallpaper) s.setProperty('--custom-wallpaper', `url(${S.customWallpaper})`);
     }
     
-    async function loadSettingsFromServer() {
-      try {
-        const result = await callApi('loadSettings');
-        if (result.success) {
-          settings = { ...settings, ...result.settings };
-          applySettings();
-        }
-      } catch (e) { /* настройки по умолчанию */ }
+    async function loadSettings() {
+      const r = await api('loadSettings');
+      if (r.success) { S = { ...S, ...r.settings }; applySettings(); }
     }
     
-    function showPage(page) { currentPage = page; renderPage(); }
+    // ===== NAVIGATION =====
+    function go(p) { page = p; render(); }
     
-    function showToast(message, duration = 2000) {
-      const toast = document.getElementById('toast');
-      toast.textContent = message;
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), duration);
+    function toast(msg, dur = 2000) {
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), dur);
     }
     
-    function formatCurrency(amount) {
-      return new Intl.NumberFormat('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(amount);
+    function fmt(n) {
+      return new Intl.NumberFormat('ru-RU', { minimumFractionDigits:0, maximumFractionDigits:2 }).format(n);
     }
     
-    function renderHomePage() {
-      const app = document.getElementById('app');
-      app.innerHTML = `
-        <div class="header"><h1>Dashboard</h1></div>
+    // ===== PAGES =====
+    function render() {
+      const pages = { home, add, edit:home, settings };
+      (pages[page] || home)();
+    }
+    
+    function home() {
+      setHTML(`
+        <div class="hdr"><h1>Dashboard</h1></div>
         <div class="container">
-          <div class="content-block">
-            <div class="block-title">Баланс</div>
-            <div class="balance-amount" id="balance"><span class="loading-pulse">— ₽</span></div>
-          </div>
-          <div class="content-block">
-            <div class="block-title">Последние операции</div>
-            <div class="transaction-list" id="transactions"><div class="empty-state loading-pulse">Загрузка...</div></div>
-          </div>
+          <div class="card"><div class="card-title">Баланс</div><div class="balance" id="bal"><span class="skeleton">— ₽</span></div></div>
+          <div class="card"><div class="card-title">Последние операции</div><div class="tx-list" id="txs"><div class="empty skeleton">Загрузка...</div></div></div>
         </div>
-        <div class="bottom-nav">
-          <div class="nav-item active" onclick="showPage('home')">Обзор</div>
-          <div class="nav-item" onclick="showPage('add')">Добавить</div>
-          <div class="nav-item" onclick="showPage('settings')">Настройки</div>
-        </div>
-      `;
-      loadBalance();
-      loadTransactions();
+        ${nav('home')}
+      `);
+      loadBalance(); loadTransactions();
     }
     
     async function loadBalance() {
-      const result = await callApi('getBalance');
-      const balanceEl = document.getElementById('balance');
-      if (result.success) {
-        balanceEl.textContent = formatCurrency(result.balance) + ' ₽';
-        balanceEl.classList.remove('loading-pulse');
-      } else {
-        balanceEl.textContent = 'Ошибка';
-      }
+      const r = await api('getBalance');
+      const el = document.getElementById('bal');
+      el.textContent = r.success ? fmt(r.balance) + ' ₽' : 'Ошибка';
     }
     
     async function loadTransactions() {
-      const result = await callApi('getLastTransactions', { limit: 15 });
-      const container = document.getElementById('transactions');
-      if (!result.success || result.transactions.length === 0) {
-        container.innerHTML = '<div class="empty-state">Нет операций</div>';
-        return;
-      }
-      container.innerHTML = result.transactions.map(t => `
-        <div class="transaction-item" onclick="editTransaction(${t.row}, '${t.type.replace(/'/g, "\\'")}', ${t.amount}, '${(t.category || '').replace(/'/g, "\\'")}', '${t.date}', '${(t.comment || '').replace(/'/g, "\\'")}')">
-          <div class="transaction-info">
-            <div class="transaction-category">${t.category || 'Без категории'}</div>
-            <div class="transaction-meta"><span>${t.date || '—'}</span>${t.comment ? `<span>${t.comment}</span>` : ''}</div>
-          </div>
-          <div class="transaction-amount">${t.type === 'Расход' ? '−' : '+'}${formatCurrency(t.amount)} ₽</div>
+      const r = await api('getLastTransactions', { limit:15 });
+      const el = document.getElementById('txs');
+      if (!r.success || !r.transactions.length) { el.innerHTML = '<div class="empty">Нет операций</div>'; return; }
+      el.innerHTML = r.transactions.map(t => `
+        <div class="tx" onclick="editTx(${t.row},'${esc(t.type)}',${t.amount},'${esc(t.category)}','${t.date}','${esc(t.comment)}')">
+          <div class="tx-info"><div class="tx-cat">${t.category||'—'}</div><div class="tx-meta"><span>${t.date||'—'}</span>${t.comment?`<span>${t.comment}</span>`:''}</div></div>
+          <div class="tx-amount">${t.type==='Расход'?'−':'+'}${fmt(t.amount)} ₽</div>
         </div>
       `).join('');
     }
     
-    function renderAddPage() {
-      const app = document.getElementById('app');
-      const today = new Date().toISOString().split('T')[0];
-      app.innerHTML = `
-        <div class="header"><h1>Add Transaction</h1></div>
+    function add() {
+      setHTML(`
+        <div class="hdr"><h1>Add Transaction</h1></div>
         <div class="container">
-          <div class="type-selector">
+          <div class="types">
             <button class="type-btn active" data-type="Расход" onclick="setType('Расход')">Расход</button>
             <button class="type-btn" data-type="Доход" onclick="setType('Доход')">Доход</button>
           </div>
-          <div class="content-block">
-            <table class="form-table">
-              <tr><td>Сумма</td><td><input type="number" id="amount" class="form-input" placeholder="0" step="0.01" min="0" inputmode="decimal"></td></tr>
-              <tr><td>Категория</td><td><select id="category" class="form-select"><option value="">Выберите</option></select></td></tr>
-              <tr><td>Дата</td><td><input type="date" id="date" class="form-input" value="${today}"></td></tr>
-            </table>
-            <div class="comment-field"><input type="text" id="comment" class="comment-input" placeholder="Комментарий"></div>
+          <div class="card">
+            <div class="form-row"><span class="form-label">Сумма</span><div class="form-value"><input type="number" id="am" class="input" placeholder="0" step="0.01" min="0" inputmode="decimal"></div></div>
+            <div class="form-row"><span class="form-label">Категория</span><div class="form-value"><select id="cat" class="select"><option value="">Выберите</option></select></div></div>
+            <div class="form-row"><span class="form-label">Дата</span><div class="form-value"><input type="date" id="dt" class="input" value="${today()}"></div></div>
+            <input type="text" id="cmt" class="comment" placeholder="Комментарий">
           </div>
-          <button class="action-btn" onclick="addTransaction()">Добавить операцию</button>
+          <button class="btn" onclick="doAdd()">Добавить операцию</button>
         </div>
-        <div class="bottom-nav">
-          <div class="nav-item" onclick="showPage('home')">Обзор</div>
-          <div class="nav-item active" onclick="showPage('add')">Добавить</div>
-          <div class="nav-item" onclick="showPage('settings')">Настройки</div>
-        </div>
-      `;
-      loadCategories();
-      setType('Расход');
+        ${nav('add')}
+      `);
+      loadCategories().then(() => setType('Расход'));
     }
     
     async function loadCategories() {
-      const result = await callApi('getCategories');
-      if (result.success) {
-        categories = { expenses: result.expenses || [], incomes: result.incomes || [] };
-      }
+      const r = await api('getCategories');
+      if (r.success) categories = { expenses:r.expenses||[], incomes:r.incomes||[] };
     }
     
     function setType(type) {
-      document.querySelectorAll('.type-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.type === type);
-      });
-      const select = document.getElementById('category');
-      if (!select) return;
-      const list = type === 'Расход' ? categories.expenses : categories.incomes;
-      select.innerHTML = list.length === 0 ? '<option value="">Нет категорий</option>' :
-        '<option value="">Выберите</option>' + list.map(cat => `<option value="${cat}">${cat}</option>`).join('');
+      document.querySelectorAll('.type-btn').forEach(b => b.classList.toggle('active', b.dataset.type===type));
+      const sel = document.getElementById('cat');
+      if (!sel) return;
+      const list = type==='Расход' ? categories.expenses : categories.incomes;
+      sel.innerHTML = list.length ? '<option value="">Выберите</option>'+list.map(c=>`<option value="${c}">${c}</option>`).join('') : '<option value="">Нет категорий</option>';
     }
     
-    async function addTransaction() {
-      const type = document.querySelector('.type-btn.active')?.dataset.type || 'Расход';
-      const amount = parseFloat(document.getElementById('amount')?.value || '0');
-      const category = document.getElementById('category')?.value;
-      const date = document.getElementById('date')?.value;
-      const comment = document.getElementById('comment')?.value || '';
-      if (!amount || !category || !date) return showToast('Заполните все поля');
-      const btn = document.querySelector('.action-btn');
-      btn.disabled = true; btn.textContent = 'Добавление...';
-      await callApi('addTransaction', { type, amount, category, date, comment });
-      showToast('Операция добавлена');
-      showPage('home');
+    async function doAdd() {
+      const type = document.querySelector('.type-btn.active')?.dataset.type||'Расход';
+      const amount = +document.getElementById('am')?.value||0;
+      const category = document.getElementById('cat')?.value;
+      const date = document.getElementById('dt')?.value;
+      const comment = document.getElementById('cmt')?.value||'';
+      if (!amount||!category||!date) return toast('Заполните все поля');
+      toggleBtn(true);
+      await api('addTransaction', {type,amount,category,date,comment});
+      toast('Добавлено'); go('home');
     }
     
-    function editTransaction(row, type, amount, category, date, comment) {
-      currentPage = 'edit'; editingRow = row; editType = type;
-      const app = document.getElementById('app');
-      const formattedDate = formatDateForInput(date);
-      app.innerHTML = `
-        <div class="header"><h1>Edit Transaction</h1></div>
+    function editTx(row, type, amount, category, date, comment) {
+      page='edit'; editingRow=row; editType=type;
+      setHTML(`
+        <div class="hdr"><h1>Edit Transaction</h1></div>
         <div class="container">
-          <div class="type-selector">
-            <button class="type-btn ${type === 'Расход' ? 'active' : ''}" data-type="Расход" onclick="setEditType('Расход')">Расход</button>
-            <button class="type-btn ${type === 'Доход' ? 'active' : ''}" data-type="Доход" onclick="setEditType('Доход')">Доход</button>
+          <div class="types">
+            <button class="type-btn ${type==='Расход'?'active':''}" data-type="Расход" onclick="setEditType('Расход')">Расход</button>
+            <button class="type-btn ${type==='Доход'?'active':''}" data-type="Доход" onclick="setEditType('Доход')">Доход</button>
           </div>
-          <div class="content-block">
-            <table class="form-table">
-              <tr><td>Сумма</td><td><input type="number" id="editAmount" class="form-input" value="${amount}" step="0.01" min="0" inputmode="decimal"></td></tr>
-              <tr><td>Категория</td><td><select id="editCategory" class="form-select">${getCategoriesOptions(type, category)}</select></td></tr>
-              <tr><td>Дата</td><td><input type="date" id="editDate" class="form-input" value="${formattedDate}"></td></tr>
-            </table>
-            <div class="comment-field"><input type="text" id="editComment" class="comment-input" placeholder="Комментарий" value="${comment.replace(/"/g, '&quot;')}"></div>
+          <div class="card">
+            <div class="form-row"><span class="form-label">Сумма</span><div class="form-value"><input type="number" id="eam" class="input" value="${amount}" step="0.01" min="0" inputmode="decimal"></div></div>
+            <div class="form-row"><span class="form-label">Категория</span><div class="form-value"><select id="ecat" class="select">${catOptions(type,category)}</select></div></div>
+            <div class="form-row"><span class="form-label">Дата</span><div class="form-value"><input type="date" id="edt" class="input" value="${toDateInput(date)}"></div></div>
+            <input type="text" id="ecmt" class="comment" placeholder="Комментарий" value="${comment.replace(/"/g,'&quot;')}">
           </div>
-          <button class="action-btn" onclick="saveEdit(${row})">Сохранить изменения</button>
-          <button class="reset-btn" onclick="showPage('home')">Отмена</button>
+          <button class="btn" onclick="doEdit(${row})">Сохранить</button>
+          <button class="btn btn-outline" onclick="go('home')">Отмена</button>
         </div>
-        <div class="bottom-nav">
-          <div class="nav-item" onclick="showPage('home')">Обзор</div>
-          <div class="nav-item" onclick="showPage('add')">Добавить</div>
-          <div class="nav-item" onclick="showPage('settings')">Настройки</div>
-        </div>
-      `;
+        ${nav('add')}
+      `);
       loadCategories();
     }
     
     function setEditType(type) {
-      editType = type;
-      document.querySelectorAll('.type-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.type === type));
-      const select = document.getElementById('editCategory');
-      if (!select) return;
-      const list = type === 'Расход' ? categories.expenses : categories.incomes;
-      select.innerHTML = list.length === 0 ? '<option value="">Нет категорий</option>' :
-        list.map(cat => `<option value="${cat}">${cat}</option>`).join('');
+      editType=type;
+      document.querySelectorAll('.type-btn').forEach(b=>b.classList.toggle('active',b.dataset.type===type));
+      const sel=document.getElementById('ecat');
+      if(!sel)return;
+      const list=type==='Расход'?categories.expenses:categories.incomes;
+      sel.innerHTML=list.length?list.map(c=>`<option value="${c}">${c}</option>`).join(''):'<option value="">Нет категорий</option>';
     }
     
-    function getCategoriesOptions(type, selected) {
-      const list = type === 'Расход' ? categories.expenses : categories.incomes;
-      return list.length === 0 ? '<option value="">Нет категорий</option>' :
-        list.map(cat => `<option value="${cat}" ${cat === selected ? 'selected' : ''}>${cat}</option>`).join('');
+    async function doEdit(row) {
+      const type=document.querySelector('.type-btn.active')?.dataset.type||editType;
+      const amount=+document.getElementById('eam')?.value||0;
+      const category=document.getElementById('ecat')?.value;
+      const date=document.getElementById('edt')?.value;
+      const comment=document.getElementById('ecmt')?.value||'';
+      if(!amount||!category||!date)return toast('Заполните все поля');
+      toggleBtn(true);
+      await api('updateTransaction',{row,type,amount,category,date,comment});
+      toast('Сохранено'); go('home');
     }
     
-    function formatDateForInput(dateStr) {
-      if (!dateStr || dateStr === '—') return '';
-      const parts = dateStr.split('.');
-      if (parts.length === 3) return `${parts[2]}-${parts[1]}-${parts[0]}`;
-      const slashParts = dateStr.split('/');
-      if (slashParts.length === 3) return `${slashParts[2]}-${slashParts[0]}-${slashParts[1]}`;
-      return dateStr;
-    }
-    
-    async function saveEdit(row) {
-      const type = document.querySelector('.type-btn.active')?.dataset.type || editType;
-      const amount = parseFloat(document.getElementById('editAmount')?.value || '0');
-      const category = document.getElementById('editCategory')?.value;
-      const date = document.getElementById('editDate')?.value;
-      const comment = document.getElementById('editComment')?.value || '';
-      if (!amount || !category || !date) return showToast('Заполните все поля');
-      const btn = document.querySelector('.action-btn');
-      btn.disabled = true; btn.textContent = 'Сохранение...';
-      await callApi('updateTransaction', { row, type, amount, category, date, comment });
-      showToast('Изменения сохранены');
-      showPage('home');
-    }
-    
-    function renderSettingsPage() {
-      const app = document.getElementById('app');
-      const fontOptions = Object.entries(fonts).map(([k,v]) => `<option value="${k}" ${settings.font===k?'selected':''}>${v.name}</option>`).join('');
-      const wallpaperOptions = Object.entries(wallpapers).map(([k,v]) => `<option value="${k}" ${settings.wallpaper===k?'selected':''}>${v}</option>`).join('');
-      app.innerHTML = `
-        <div class="header"><h1>Settings</h1></div>
+    function settings() {
+      setHTML(`
+        <div class="hdr"><h1>Settings</h1></div>
         <div class="container">
-          <div class="content-block">
-            <div class="block-title">Оформление</div>
-            <div class="setting-item"><span class="setting-label">Шрифт</span><select id="fontSelect" class="setting-select">${fontOptions}</select></div>
-            <div class="setting-item"><span class="setting-label">Обои</span><select id="wallpaperSelect" class="setting-select" onchange="updateWallpaperPreview(this.value)">${wallpaperOptions}</select></div>
-            <div id="customWallpaperSection" style="display:${settings.wallpaper==='custom'?'block':'none'};"><input type="text" id="customWallpaperUrl" class="custom-url-input" placeholder="Ссылка на изображение (Google Drive)" value="${settings.customWallpaper}"><div style="font-size:13px;opacity:0.5;margin-top:8px;">Загрузите изображение в Google Drive, откройте доступ по ссылке и вставьте ссылку сюда</div></div>
-            <div class="setting-item"><span class="setting-label">Анимации</span><div id="animationSwitch" class="switch ${settings.animation?'active':''}" onclick="toggleSwitch('animation')"></div></div>
-            <div class="setting-item"><span class="setting-label">Blur эффекты</span><div id="blurSwitch" class="switch ${settings.blur?'active':''}" onclick="toggleSwitch('blur')"></div></div>
-            <div class="setting-item" style="flex-direction:column;align-items:flex-start;gap:8px;">
-              <div style="display:flex;justify-content:space-between;width:100%;"><span class="setting-label">Прозрачность блоков</span><span class="opacity-value" id="opacityValue">${settings.opacity}%</span></div>
-              <input type="range" id="opacitySlider" class="opacity-slider" min="0" max="100" value="${settings.opacity}" oninput="updateOpacity(this.value)">
+          <div class="card">
+            <div class="card-title">Оформление</div>
+            <div class="setting"><span class="setting-label">Шрифт</span><select id="fs" class="setting-select" onchange="S.font=this.value;applySettings()">${opts(FONTS,S.font)}</select></div>
+            <div class="setting"><span class="setting-label">Обои</span><select id="ws" class="setting-select" onchange="setWallpaper(this.value)">${opts(WALLPAPERS,S.wallpaper)}</select></div>
+            <div id="cw" style="display:${S.wallpaper==='custom'?'block':'none'}"><input type="text" id="cwurl" class="comment" placeholder="Ссылка (Google Drive)" value="${S.customWallpaper}"></div>
+            <div class="setting"><span class="setting-label">Анимации</span><div id="sw-anim" class="switch ${S.animation?'on':''}" onclick="toggle('animation')"></div></div>
+            <div class="setting"><span class="setting-label">Blur</span><div id="sw-blur" class="switch ${S.blur?'on':''}" onclick="toggle('blur')"></div></div>
+            <div class="setting" style="flex-direction:column;gap:8px">
+              <div style="display:flex;justify-content:space-between;width:100%"><span class="setting-label">Прозрачность</span><span id="opv">${S.opacity}%</span></div>
+              <input type="range" id="ops" class="slider" min="0" max="100" value="${S.opacity}" oninput="setOpacity(this.value)">
             </div>
           </div>
-          <div class="content-block">
-            <div class="block-title">Цвета</div>
-            <div class="setting-item"><span class="setting-label">Фон</span><div class="color-circle" style="background:${settings.backgroundColor}"><input type="color" id="bgColor" value="${settings.backgroundColor}" onchange="updateColorPreview('bg',this.value)"></div></div>
-            <div class="setting-item"><span class="setting-label">Основной цвет</span><div class="color-circle" style="background:${settings.primaryColor}"><input type="color" id="primaryColor" value="${settings.primaryColor}" onchange="updateColorPreview('primary',this.value)"></div></div>
-            <div class="setting-item"><span class="setting-label">Фон Header</span><div class="color-circle" style="background:${settings.headerBgColor}"><input type="color" id="headerBgColor" value="${settings.headerBgColor}" onchange="updateColorPreview('headerBg',this.value)"></div></div>
-            <div class="setting-item"><span class="setting-label">Текст Header</span><div class="color-circle" style="background:${settings.headerTextColor}"><input type="color" id="headerTextColor" value="${settings.headerTextColor}" onchange="updateColorPreview('headerText',this.value)"></div></div>
+          <div class="card">
+            <div class="card-title">Цвета</div>
+            ${colorRow('Фон','bgColor')}
+            ${colorRow('Основной','primaryColor')}
+            ${colorRow('Фон Header','headerBgColor')}
+            ${colorRow('Текст Header','headerTextColor')}
           </div>
-          <button class="action-btn" onclick="saveAllSettings()">Сохранить настройки</button>
-          <button class="reset-btn" onclick="resetAllSettings()">Сбросить настройки</button>
+          <button class="btn" onclick="saveCfg()">Сохранить</button>
+          <button class="btn btn-outline" onclick="resetCfg()">Сбросить</button>
         </div>
-        <div class="bottom-nav">
-          <div class="nav-item" onclick="showPage('home')">Обзор</div>
-          <div class="nav-item" onclick="showPage('add')">Добавить</div>
-          <div class="nav-item active" onclick="showPage('settings')">Настройки</div>
-        </div>
-      `;
+        ${nav('settings')}
+      `);
     }
     
-    function updateWallpaperPreview(value) {
-      settings.wallpaper = value; applySettings();
-      const cs = document.getElementById('customWallpaperSection');
-      if (cs) cs.style.display = value === 'custom' ? 'block' : 'none';
-    }
+    // ===== HELPERS =====
+    function setHTML(html) { document.getElementById('app').innerHTML = html; }
+    function nav(active) { return `<div class="nav">${['home','add','settings'].map(p=>`<div class="nav-btn${p===active?' active':''}" onclick="go('${p}')">${{home:'Обзор',add:'Добавить',settings:'Настройки'}[p]}</div>`).join('')}</div>`; }
+    function esc(s) { return (s||'').replace(/'/g,"\\'"); }
+    function today() { return new Date().toISOString().split('T')[0]; }
+    function toDateInput(s) { if(!s||s==='—')return ''; const p=s.split('.'); return p.length===3?`${p[2]}-${p[1]}-${p[0]}`:s; }
+    function catOptions(type, sel) { const l=type==='Расход'?categories.expenses:categories.incomes; return l.length?l.map(c=>`<option value="${c}" ${c===sel?'selected':''}>${c}</option>`).join(''):'<option>Нет категорий</option>'; }
+    function opts(obj, sel) { return Object.entries(obj).map(([k,v])=>`<option value="${k}" ${k===sel?'selected':''}>${v}</option>`).join(''); }
+    function colorRow(label, key) { return `<div class="setting"><span class="setting-label">${label}</span><div class="color-pick" style="background:${S[key]}"><input type="color" value="${S[key]}" onchange="setColor('${key}',this)"></div></div>`; }
+    function toggleBtn(disabled) { const b=document.querySelector('.btn'); if(b){b.disabled=disabled;b.textContent=disabled?'Сохранение...':'Сохранить';} }
+    function setWallpaper(v) { S.wallpaper=v;applySettings();const cw=document.getElementById('cw');if(cw)cw.style.display=v==='custom'?'block':'none'; }
+    function setColor(key, el) { S[key]=el.value;el.parentElement.style.background=el.value;applySettings(); }
+    function setOpacity(v) { S.opacity=+v;const ov=document.getElementById('opv');if(ov)ov.textContent=v+'%';applySettings(); }
+    function toggle(key) { S[key]=!S[key];const sw=document.getElementById('sw-'+key);if(sw)sw.classList.toggle('on',S[key]);document.body.setAttribute('data-blur',S.blur);applySettings(); }
+    async function saveCfg() { S.customWallpaper=document.getElementById('cwurl')?.value||'';applySettings();await api('saveSettings',S);toast('Сохранено'); }
+    async function resetCfg() { S={...DEFAULTS};applySettings();await api('saveSettings',S);if(page==='settings')settings();toast('Сброшено'); }
     
-    function updateColorPreview(type, value) {
-      const circle = event.target.closest('.color-circle');
-      if (circle) circle.style.background = value;
-      if (type === 'bg') settings.backgroundColor = value;
-      else if (type === 'primary') settings.primaryColor = value;
-      else if (type === 'headerBg') settings.headerBgColor = value;
-      else if (type === 'headerText') settings.headerTextColor = value;
-      applySettings();
-    }
-    
-    function updateOpacity(value) {
-      settings.opacity = parseInt(value);
-      const ov = document.getElementById('opacityValue');
-      if (ov) ov.textContent = value + '%';
-      applySettings();
-    }
-    
-    function toggleSwitch(type) {
-      settings[type] = !settings[type];
-      const sw = document.getElementById(type + 'Switch');
-      if (sw) sw.classList.toggle('active', settings[type]);
-      document.body.setAttribute('data-blur', settings.blur);
-      applySettings();
-    }
-    
-    async function saveAllSettings() {
-      settings.font = document.getElementById('fontSelect')?.value || settings.font;
-      settings.wallpaper = document.getElementById('wallpaperSelect')?.value || settings.wallpaper;
-      settings.customWallpaper = document.getElementById('customWallpaperUrl')?.value || '';
-      applySettings();
-      await callApi('saveSettings', settings);
-      showToast('Настройки сохранены');
-    }
-    
-    async function resetAllSettings() {
-      settings = {
-        font: 'inter', wallpaper: 'none', customWallpaper: '',
-        animation: true, blur: true, opacity: 0,
-        backgroundColor: '#ffffff', primaryColor: '#1a1a1a',
-        headerBgColor: '#1a1a1a', headerTextColor: '#ffffff'
-      };
-      applySettings();
-      await callApi('saveSettings', settings);
-      if (currentPage === 'settings') renderSettingsPage();
-      showToast('Настройки сброшены');
-    }
-    
-    function renderPage() {
-      if (currentPage === 'home') renderHomePage();
-      else if (currentPage === 'add') renderAddPage();
-      else if (currentPage === 'edit') renderHomePage();
-      else if (currentPage === 'settings') renderSettingsPage();
-    }
-    
-    window.onload = async () => {
-      await loadSettingsFromServer();
-      renderPage();
-    };
+    // ===== INIT =====
+    window.onload = async () => { await loadSettings(); render(); };
   </script>
 </body>
 </html>
