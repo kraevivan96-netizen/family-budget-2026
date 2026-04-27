@@ -10,11 +10,11 @@
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231a1a1a'/%3E%3Cpath d='M30 35h40c3 0 5 2 5 5v20c0 3-2 5-5 5H30c-3 0-5-2-5-5V40c0-3 2-5 5-5z' fill='none' stroke='white' stroke-width='4'/%3E%3Ccircle cx='50' cy='50' r='8' fill='white'/%3E%3Cpath d='M70 45h10c2 0 3 1 3 3v4c0 2-1 3-3 3h-10' fill='none' stroke='white' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600&family=Montserrat:wght@400;500;600&family=Roboto:wght@400;500&family=Rubik:wght@400;500;600&display=swap&subset=cyrillic" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600&family=Montserrat:wght@400;500;600&family=Roboto:wght@400;500&family=Rubik:wght@400;500;600&family=Nunito:wght@400;500;600&family=Ubuntu:wght@400;500&family=Open+Sans:wght@400;500;600&family=Raleway:wght@400;500;600&family=Caveat:wght@400;500&display=swap&subset=cyrillic" rel="stylesheet">
   <title>Семейный бюджет 2026</title>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    :root{--font:'Inter',-apple-system,sans-serif;--bg:#fff;--primary:#1a1a1a;--hbg:#1a1a1a;--htext:#fff;--opacity:1}
+    :root{--font:'Inter',-apple-system,sans-serif;--bg:#fff;--block:#fff;--primary:#1a1a1a;--opacity:1}
     body{font-family:var(--font);background:0 0;color:var(--primary);min-height:100vh;padding:0 0 env(safe-area-inset-bottom,0);transition:.3s}
     body::after,body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none}
     body::after{background:var(--bg);z-index:-1}
@@ -26,32 +26,21 @@
     [data-wallpaper="gradient5"]::before{background:linear-gradient(135deg,#fa709a,#fee140)}
     [data-wallpaper="none"]::before{display:none}
     #app{position:relative;z-index:2}
-    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-    @keyframes scaleIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
-    @keyframes slideIn{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
     @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
-    [data-animation="true"] .container{animation:fadeIn .4s ease-out}
-    [data-animation="true"] .card{animation:scaleIn .5s ease-out}
-    [data-animation="true"] .tx{animation:slideIn .3s ease-out both}
-    [data-animation="true"] .tx:nth-child(1){animation-delay:.05s}
-    [data-animation="true"] .tx:nth-child(2){animation-delay:.1s}
-    [data-animation="true"] .tx:nth-child(3){animation-delay:.15s}
-    [data-animation="true"] .tx:nth-child(4){animation-delay:.2s}
-    [data-animation="true"] .tx:nth-child(5){animation-delay:.25s}
     .skeleton{animation:pulse 1.5s ease-in-out infinite}
-    
+
     /* Header */
-    .hdr{background:0 0;color:var(--htext);padding:55px 20px 20px;position:sticky;top:0;z-index:10;text-align:center;transition:padding .3s,background .3s}
-    .hdr.scrolled{padding:12px 20px;background:color-mix(in srgb,var(--hbg) 90%,transparent);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+    .hdr{background:0 0;color:var(--primary);padding:55px 20px 20px;position:sticky;top:0;z-index:10;text-align:center;transition:padding .3s}
     .hdr h1{font-size:34px;font-weight:600;letter-spacing:-.5px;transition:opacity .3s,transform .3s}
     .hdr.scrolled h1{opacity:0;transform:translateY(-10px)}
-    
+    .container{max-width:100%;margin:0 auto;padding:20px}
+
     /* Cards */
-    .card{background:color-mix(in srgb,var(--bg) calc((1 - var(--opacity)) * 100%),transparent);border-radius:20px;padding:20px;margin-bottom:20px;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:background .3s}
+    .card{background:color-mix(in srgb,var(--block) calc((1 - var(--opacity)) * 100%),transparent);border-radius:20px;padding:20px;margin-bottom:20px;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:background .3s}
     [data-blur="true"] .card{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
     .card-title{font-size:17px;font-weight:600;color:var(--primary);margin-bottom:16px}
     .balance{font-size:52px;font-weight:600;color:var(--primary);text-align:center}
-    
+
     /* Transactions */
     .tx-list{border-radius:12px;overflow:hidden}
     .tx{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid rgba(128,128,128,.08);cursor:pointer}
@@ -61,20 +50,21 @@
     .tx-cat{font-size:17px;font-weight:500;margin-bottom:4px}
     .tx-meta{display:flex;gap:12px;font-size:14px;opacity:.5}
     .tx-amount{font-size:20px;font-weight:500;letter-spacing:-.3px}
-    
+
     /* Navigation */
-    .nav{position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:1px solid rgba(128,128,128,.08);padding:8px 20px calc(8px + env(safe-area-inset-bottom,0));display:flex;gap:8px;z-index:10}
-    .nav-btn{flex:1;text-align:center;padding:12px;border-radius:14px;opacity:.5;font-size:15px;font-weight:500;cursor:pointer;transition:.2s}
-    .nav-btn.active{opacity:1;background:var(--primary);color:var(--bg)}
+    .nav{position:fixed;bottom:0;left:0;right:0;background:color-mix(in srgb,var(--block) calc((1 - var(--opacity)) * 100%),transparent);border-top:1px solid rgba(128,128,128,.08);padding:8px 20px calc(8px + env(safe-area-inset-bottom,0));display:flex;gap:8px;z-index:10}
+    [data-blur="true"] .nav{backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+    .nav-btn{flex:1;text-align:center;padding:12px;border-radius:14px;opacity:.5;font-size:15px;font-weight:500;cursor:pointer;transition:.2s;color:var(--primary)}
+    .nav-btn.active{opacity:1;background:var(--primary);color:var(--inv-primary)}
     .nav-btn:hover{opacity:.8}
-    
+
     /* Type Selector */
-    .types{display:flex;gap:12px;margin-bottom:20px;background:color-mix(in srgb,var(--bg) calc((1-var(--opacity))*100%),transparent);padding:4px;border-radius:16px;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+    .types{display:flex;gap:12px;margin-bottom:20px;background:color-mix(in srgb,var(--block) calc((1 - var(--opacity)) * 100%),transparent);padding:4px;border-radius:16px;box-shadow:0 2px 12px rgba(0,0,0,.04)}
     [data-blur="true"] .types{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-    .type-btn{flex:1;padding:16px;border:none;background:0 0;border-radius:12px;font-size:17px;font-weight:500;opacity:.5;cursor:pointer;transition:.2s;font-family:inherit}
-    .type-btn.active{background:var(--primary);color:var(--bg);opacity:1}
+    .type-btn{flex:1;padding:16px;border:none;background:0 0;border-radius:12px;font-size:17px;font-weight:500;opacity:.5;cursor:pointer;transition:.2s;font-family:inherit;color:var(--primary)}
+    .type-btn.active{background:var(--primary);color:var(--inv-primary);opacity:1}
     .type-btn:active{transform:scale(.97)}
-    
+
     /* Form */
     .form-row{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid rgba(128,128,128,.08)}
     .form-row:last-child{border-bottom:none}
@@ -83,21 +73,21 @@
     .input{border:none;background:0 0;font-size:17px;color:var(--primary);text-align:right;outline:none;width:100%;font-family:inherit}
     .input::placeholder{opacity:.3}
     .select{border:none;background:0 0;font-size:17px;color:var(--primary);text-align:right;outline:none;width:100%;font-family:inherit;cursor:pointer;appearance:none}
-    .comment{margin-top:16px;width:100%;padding:14px;border:none;background:color-mix(in srgb,var(--bg) 70%,transparent);border-radius:12px;font-size:15px;outline:none;font-family:inherit}
+    .comment{margin-top:16px;width:100%;padding:14px;border:none;background:rgba(128,128,128,.06);border-radius:12px;font-size:15px;color:var(--primary);outline:none;font-family:inherit}
     .comment::placeholder{opacity:.5}
-    
+
     /* Buttons */
-    .btn{width:100%;padding:18px;background:color-mix(in srgb,var(--bg) calc((1-var(--opacity))*100%),transparent);color:var(--primary);border:none;border-radius:16px;font-size:17px;font-weight:500;cursor:pointer;transition:.2s;font-family:inherit;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+    .btn{width:100%;padding:18px;background:color-mix(in srgb,var(--block) calc((1 - var(--opacity)) * 100%),transparent);color:var(--primary);border:none;border-radius:16px;font-size:17px;font-weight:500;cursor:pointer;transition:.2s;font-family:inherit;box-shadow:0 2px 12px rgba(0,0,0,.04)}
     [data-blur="true"] .btn{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
     .btn:active{opacity:.8;transform:scale(.98)}
     .btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
     .btn-outline{background:0 0;border:1px solid rgba(128,128,128,.15);box-shadow:none;margin-top:12px}
-    
+
     /* Settings */
     .setting{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid rgba(128,128,128,.08)}
     .setting:last-child{border-bottom:none}
-    .setting-label{font-size:16px}
-    .setting-select{padding:8px 12px;border:none;background:0 0;border-radius:10px;font-size:15px;font-family:inherit;cursor:pointer}
+    .setting-label{font-size:16px;color:var(--primary)}
+    .setting-select{padding:8px 12px;border:none;background:rgba(128,128,128,.06);color:var(--primary);border-radius:10px;font-size:15px;font-family:inherit;cursor:pointer}
     .slider{width:120px;height:6px;appearance:none;background:rgba(128,128,128,.2);border-radius:3px;outline:none}
     .slider::-webkit-slider-thumb{appearance:none;width:24px;height:24px;border-radius:50%;background:var(--primary);cursor:pointer;border:2px solid var(--bg);box-shadow:0 2px 6px rgba(0,0,0,.15)}
     .color-pick{width:40px;height:40px;border-radius:50%;border:2px solid rgba(128,128,128,.2);cursor:pointer;position:relative;overflow:hidden}
@@ -106,7 +96,7 @@
     .switch.on{background:var(--primary)}
     .switch::after{content:'';position:absolute;width:24px;height:24px;background:#fff;border-radius:12px;top:2px;left:2px;transition:.2s}
     .switch.on::after{transform:translateX(22px)}
-    
+
     .toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:var(--primary);color:var(--bg);padding:14px 24px;border-radius:30px;font-size:15px;z-index:1000;opacity:0;transition:.3s;pointer-events:none;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.15)}
     .toast.show{opacity:1}
     .empty{padding:32px 16px;text-align:center;opacity:.4}
@@ -114,75 +104,78 @@
     input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{appearance:none;margin:0}
   </style>
 </head>
-<body data-wallpaper="none" data-animation="true" data-blur="true">
+<body data-wallpaper="none" data-blur="true">
   <div class="toast" id="toast"></div>
   <div id="app"></div>
   <script>
-    // ===== CONFIG =====
     const API = 'https://script.google.com/macros/s/AKfycbyNKdNvU3erBGtgxGFiCCQrHqr69szpH5nCO06xTYam4fkgcqENw6Grh3S0jw6xgaM7Zg/exec';
     const FONTS = {
-      inter:'Inter', manrope:'Manrope', montserrat:'Montserrat', roboto:'Roboto', rubik:'Rubik'
+      inter:'Inter', manrope:'Manrope', montserrat:'Montserrat', roboto:'Roboto', rubik:'Rubik',
+      nunito:'Nunito', ubuntu:'Ubuntu', opensans:'Open Sans', raleway:'Raleway', caveat:'Caveat'
     };
     const WALLPAPERS = {
       none:'Без обоев', gradient1:'Фиолетовый', gradient2:'Розовый', gradient3:'Голубой',
-      gradient4:'Зеленый', gradient5:'Оранжевый', waves:'Волны', mountains:'Горы', custom:'Своё'
+      gradient4:'Зеленый', gradient5:'Оранжевый', waves:'Волны', mountains:'Горы', custom:'Своя ссылка'
     };
     const DEFAULTS = {
-      font:'inter', wallpaper:'none', customWallpaper:'', animation:true, blur:true, opacity:0,
-      bgColor:'#ffffff', primaryColor:'#1a1a1a', headerBgColor:'#1a1a1a', headerTextColor:'#ffffff'
+      font:'inter', wallpaper:'none', customWallpaper:'', blur:true, opacity:0,
+      bgColor:'#ffffff', blockColor:'#ffffff', primaryColor:'#1a1a1a'
     };
-    
-    // ===== STATE =====
+
     let page = 'home', editingRow = null, editType = 'Расход';
     let categories = { expenses:[], incomes:[] };
     let S = { ...DEFAULTS };
-    
+
     // ===== API =====
     async function api(action, data = {}) {
       let url = `${API}?action=${action}`;
       if (Object.keys(data).length) url += '&data=' + encodeURIComponent(JSON.stringify(data));
       return (await fetch(url)).json();
     }
-    
+
     // ===== SETTINGS =====
     function applySettings() {
       const s = document.documentElement.style;
       s.setProperty('--font', `"${FONTS[S.font]}",-apple-system,sans-serif`);
       s.setProperty('--bg', S.bgColor);
+      s.setProperty('--block', S.blockColor);
       s.setProperty('--primary', S.primaryColor);
-      s.setProperty('--hbg', S.headerBgColor);
-      s.setProperty('--htext', S.headerTextColor);
       s.setProperty('--opacity', S.opacity / 100);
+      s.setProperty('--inv-primary', isLight(S.primaryColor) ? '#1a1a1a' : '#ffffff');
       document.body.setAttribute('data-wallpaper', S.wallpaper);
-      document.body.setAttribute('data-animation', S.animation);
       document.body.setAttribute('data-blur', S.blur);
       if (S.customWallpaper) s.setProperty('--custom-wallpaper', `url(${S.customWallpaper})`);
     }
-    
+
+    function isLight(hex) {
+      const r = parseInt(hex.slice(1,3), 16);
+      const g = parseInt(hex.slice(3,5), 16);
+      const b = parseInt(hex.slice(5,7), 16);
+      return (r*299 + g*587 + b*114) / 1000 > 128;
+    }
+
     async function loadSettings() {
       const r = await api('loadSettings');
       if (r.success) { S = { ...S, ...r.settings }; applySettings(); }
     }
-    
+
     // ===== NAVIGATION =====
     function go(p) { page = p; render(); }
-    
     function toast(msg, dur = 2000) {
       const t = document.getElementById('toast');
       t.textContent = msg; t.classList.add('show');
       setTimeout(() => t.classList.remove('show'), dur);
     }
-    
     function fmt(n) {
       return new Intl.NumberFormat('ru-RU', { minimumFractionDigits:0, maximumFractionDigits:2 }).format(n);
     }
-    
+
     // ===== PAGES =====
     function render() {
       const pages = { home, add, edit:home, settings };
       (pages[page] || home)();
     }
-    
+
     function home() {
       setHTML(`
         <div class="hdr"><h1>Dashboard</h1></div>
@@ -194,13 +187,13 @@
       `);
       loadBalance(); loadTransactions();
     }
-    
+
     async function loadBalance() {
       const r = await api('getBalance');
       const el = document.getElementById('bal');
       el.textContent = r.success ? fmt(r.balance) + ' ₽' : 'Ошибка';
     }
-    
+
     async function loadTransactions() {
       const r = await api('getLastTransactions', { limit:15 });
       const el = document.getElementById('txs');
@@ -212,7 +205,7 @@
         </div>
       `).join('');
     }
-    
+
     function add() {
       setHTML(`
         <div class="hdr"><h1>Add Transaction</h1></div>
@@ -233,12 +226,12 @@
       `);
       loadCategories().then(() => setType('Расход'));
     }
-    
+
     async function loadCategories() {
       const r = await api('getCategories');
       if (r.success) categories = { expenses:r.expenses||[], incomes:r.incomes||[] };
     }
-    
+
     function setType(type) {
       document.querySelectorAll('.type-btn').forEach(b => b.classList.toggle('active', b.dataset.type===type));
       const sel = document.getElementById('cat');
@@ -246,7 +239,7 @@
       const list = type==='Расход' ? categories.expenses : categories.incomes;
       sel.innerHTML = list.length ? '<option value="">Выберите</option>'+list.map(c=>`<option value="${c}">${c}</option>`).join('') : '<option value="">Нет категорий</option>';
     }
-    
+
     async function doAdd() {
       const type = document.querySelector('.type-btn.active')?.dataset.type||'Расход';
       const amount = +document.getElementById('am')?.value||0;
@@ -258,7 +251,7 @@
       await api('addTransaction', {type,amount,category,date,comment});
       toast('Добавлено'); go('home');
     }
-    
+
     function editTx(row, type, amount, category, date, comment) {
       page='edit'; editingRow=row; editType=type;
       setHTML(`
@@ -281,7 +274,7 @@
       `);
       loadCategories();
     }
-    
+
     function setEditType(type) {
       editType=type;
       document.querySelectorAll('.type-btn').forEach(b=>b.classList.toggle('active',b.dataset.type===type));
@@ -290,7 +283,7 @@
       const list=type==='Расход'?categories.expenses:categories.incomes;
       sel.innerHTML=list.length?list.map(c=>`<option value="${c}">${c}</option>`).join(''):'<option value="">Нет категорий</option>';
     }
-    
+
     async function doEdit(row) {
       const type=document.querySelector('.type-btn.active')?.dataset.type||editType;
       const amount=+document.getElementById('eam')?.value||0;
@@ -302,7 +295,7 @@
       await api('updateTransaction',{row,type,amount,category,date,comment});
       toast('Сохранено'); go('home');
     }
-    
+
     function settings() {
       setHTML(`
         <div class="hdr"><h1>Settings</h1></div>
@@ -311,20 +304,18 @@
             <div class="card-title">Оформление</div>
             <div class="setting"><span class="setting-label">Шрифт</span><select id="fs" class="setting-select" onchange="S.font=this.value;applySettings()">${opts(FONTS,S.font)}</select></div>
             <div class="setting"><span class="setting-label">Обои</span><select id="ws" class="setting-select" onchange="setWallpaper(this.value)">${opts(WALLPAPERS,S.wallpaper)}</select></div>
-            <div id="cw" style="display:${S.wallpaper==='custom'?'block':'none'}"><input type="text" id="cwurl" class="comment" placeholder="Ссылка (Google Drive)" value="${S.customWallpaper}"></div>
-            <div class="setting"><span class="setting-label">Анимации</span><div id="sw-anim" class="switch ${S.animation?'on':''}" onclick="toggle('animation')"></div></div>
+            <div id="cw" style="display:${S.wallpaper==='custom'?'block':'none'}"><input type="text" id="cwurl" class="comment" placeholder="Ссылка на любое изображение" value="${S.customWallpaper}"><div style="font-size:13px;opacity:.5;margin-top:8px">Вставьте прямую ссылку на изображение (jpg, png, webp)</div></div>
             <div class="setting"><span class="setting-label">Blur</span><div id="sw-blur" class="switch ${S.blur?'on':''}" onclick="toggle('blur')"></div></div>
             <div class="setting" style="flex-direction:column;gap:8px">
-              <div style="display:flex;justify-content:space-between;width:100%"><span class="setting-label">Прозрачность</span><span id="opv">${S.opacity}%</span></div>
+              <div style="display:flex;justify-content:space-between;width:100%"><span class="setting-label">Прозрачность блоков</span><span id="opv">${S.opacity}%</span></div>
               <input type="range" id="ops" class="slider" min="0" max="100" value="${S.opacity}" oninput="setOpacity(this.value)">
             </div>
           </div>
           <div class="card">
             <div class="card-title">Цвета</div>
             ${colorRow('Фон','bgColor')}
-            ${colorRow('Основной','primaryColor')}
-            ${colorRow('Фон Header','headerBgColor')}
-            ${colorRow('Текст Header','headerTextColor')}
+            ${colorRow('Цвет блоков','blockColor')}
+            ${colorRow('Основной цвет','primaryColor')}
           </div>
           <button class="btn" onclick="saveCfg()">Сохранить</button>
           <button class="btn btn-outline" onclick="resetCfg()">Сбросить</button>
@@ -332,13 +323,13 @@
         ${nav('settings')}
       `);
     }
-    
+
     // ===== HELPERS =====
     function setHTML(html) { document.getElementById('app').innerHTML = html; }
     function nav(active) { return `<div class="nav">${['home','add','settings'].map(p=>`<div class="nav-btn${p===active?' active':''}" onclick="go('${p}')">${{home:'Обзор',add:'Добавить',settings:'Настройки'}[p]}</div>`).join('')}</div>`; }
     function esc(s) { return (s||'').replace(/'/g,"\\'"); }
     function today() { return new Date().toISOString().split('T')[0]; }
-    function toDateInput(s) { if(!s||s==='—')return ''; const p=s.split('.'); return p.length===3?`${p[2]}-${p[1]}-${p[0]}`:s; }
+    function toDateInput(s) { if(!s||s==='—')return ''; const p=s.split('.'); return p.length===3?`${p[2]}-${p[1]}-${p[0]}`:s.split('/').length===3?`${s.split('/')[2]}-${s.split('/')[0]}-${s.split('/')[1]}`:s; }
     function catOptions(type, sel) { const l=type==='Расход'?categories.expenses:categories.incomes; return l.length?l.map(c=>`<option value="${c}" ${c===sel?'selected':''}>${c}</option>`).join(''):'<option>Нет категорий</option>'; }
     function opts(obj, sel) { return Object.entries(obj).map(([k,v])=>`<option value="${k}" ${k===sel?'selected':''}>${v}</option>`).join(''); }
     function colorRow(label, key) { return `<div class="setting"><span class="setting-label">${label}</span><div class="color-pick" style="background:${S[key]}"><input type="color" value="${S[key]}" onchange="setColor('${key}',this)"></div></div>`; }
@@ -349,19 +340,12 @@
     function toggle(key) { S[key]=!S[key];const sw=document.getElementById('sw-'+key);if(sw)sw.classList.toggle('on',S[key]);document.body.setAttribute('data-blur',S.blur);applySettings(); }
     async function saveCfg() { S.customWallpaper=document.getElementById('cwurl')?.value||'';applySettings();await api('saveSettings',S);toast('Сохранено'); }
     async function resetCfg() { S={...DEFAULTS};applySettings();await api('saveSettings',S);if(page==='settings')settings();toast('Сброшено'); }
-    
+
     // ===== SCROLL =====
-    let lastScroll = 0;
     window.addEventListener('scroll', () => {
       const hdr = document.querySelector('.hdr');
       if (!hdr) return;
-      const scrollY = window.scrollY;
-      if (scrollY > 60) {
-        hdr.classList.add('scrolled');
-      } else {
-        hdr.classList.remove('scrolled');
-      }
-      lastScroll = scrollY;
+      hdr.classList.toggle('scrolled', window.scrollY > 60);
     }, { passive: true });
 
     // ===== INIT =====
